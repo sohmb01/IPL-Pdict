@@ -1,4 +1,4 @@
-CREATE TABLE "users" (
+CREATE TABLE "user" (
   "user_id" SERIAL PRIMARY KEY,
   "username" varchar,
   "password" varchar,
@@ -6,7 +6,7 @@ CREATE TABLE "users" (
   "fav_team" varchar
 );
 
-CREATE TABLE "predictions" (
+CREATE TABLE "prediction" (
   "user_id" int,
   "tournament_year" int,
   "orange_cap1" varchar,
@@ -19,7 +19,8 @@ CREATE TABLE "predictions" (
   "sf2" varchar,
   "sf3" varchar,
   "sf4" varchar,
-  PRIMARY KEY ("user_id", "tournament_year")
+  PRIMARY KEY ("user_id", "tournament_year"),
+  FOREIGN KEY ("user_id") REFERENCES "user" ("user_id")
 );
 
 CREATE TABLE "tournament_result" (
@@ -32,7 +33,7 @@ CREATE TABLE "tournament_result" (
   "sf4" varchar
 );
 
-CREATE TABLE "teams" (
+CREATE TABLE "team" (
   "team_code" varchar PRIMARY KEY,
   "team_name" varchar
 );
@@ -46,10 +47,14 @@ CREATE TABLE "match" (
   "team1_score" int,
   "team2_score" int,
   "wickets" int,
-  PRIMARY KEY ("match_id", "tournament_year")
+  PRIMARY KEY ("match_id", "tournament_year"),
+  FOREIGN KEY ("team_win") REFERENCES "team" ("team_code"),
+  FOREIGN KEY ("team2_id") REFERENCES "team" ("team_code"),
+  FOREIGN KEY ("team1_id") REFERENCES "team" ("team_code"),
+  FOREIGN KEY ("team_win") REFERENCES "team" ("team_code")
 );
 
-CREATE TABLE "matchwise_predictions" (
+CREATE TABLE "matchwise_prediction" (
   "user_id" int,
   "match_id" int,
   "team_win" varchar,
@@ -58,29 +63,16 @@ CREATE TABLE "matchwise_predictions" (
   "team2_high" int,
   "team2_low" int,
   "wickets" int,
-  PRIMARY KEY ("user_id", "match_id")
+  PRIMARY KEY ("user_id", "match_id"),
+  FOREIGN KEY ("team_win") REFERENCES "team" ("team_code"),
+  FOREIGN KEY ("user_id") REFERENCES "user" ("user_id")
 );
 
 CREATE TABLE "points" (
   "user_id" int,
   "match_id" int,
   "points" int,
-  PRIMARY KEY ("user_id", "match_id")
+  PRIMARY KEY ("user_id", "match_id"),
+  FOREIGN KEY ("user_id") REFERENCES "user" ("user_id"),
+  FOREIGN KEY ("match_id") REFERENCES "match" ("match_id")
 );
-
-ALTER TABLE "predictions" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
-
-ALTER TABLE "match" ADD FOREIGN KEY ("team_win") REFERENCES "teams" ("team_code");
-
-ALTER TABLE "match" ADD FOREIGN KEY ("team1_id") REFERENCES "teams" ("team_code");
-
-ALTER TABLE "match" ADD FOREIGN KEY ("team2_id") REFERENCES "teams" ("team_code");
-
-ALTER TABLE "matchwise_predictions" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
-
-ALTER TABLE "matchwise_predictions" ADD FOREIGN KEY ("team_win") REFERENCES "teams" ("team_code");
-
-ALTER TABLE "points" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
-
-ALTER TABLE "points" ADD FOREIGN KEY ("match_id") REFERENCES "match" ("match_id");
-
