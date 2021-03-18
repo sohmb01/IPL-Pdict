@@ -1,4 +1,4 @@
-package com.pdict.iplpredict.pojo;
+package com.pdict.iplpredict.entities;
 
 public class User {
     public Integer userId;
