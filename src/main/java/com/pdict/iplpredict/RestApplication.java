@@ -1,1 +1,8 @@
-package com.pdict.iplpredict;  public class RestApplication { } 
+package com.pdict.iplpredict;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
+@ApplicationPath("/api")
+public class RestApplication extends Application {
+}
