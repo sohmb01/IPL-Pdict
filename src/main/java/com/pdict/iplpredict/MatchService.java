@@ -1,7 +1,7 @@
 package com.pdict.iplpredict;
 
-import com.pdict.iplpredict.database.MatchRepository;
-import com.pdict.iplpredict.entities.Match;
+import com.pdict.iplpredict.database.*;
+import com.pdict.iplpredict.entities.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
