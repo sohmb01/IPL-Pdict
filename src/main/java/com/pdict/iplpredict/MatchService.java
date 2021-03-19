@@ -15,7 +15,7 @@ public class MatchService {
     @GET
     @Path("/getMatch/{matchId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMatch(@PathParam("id") Integer matchId) throws SQLException {
+    public Response getMatch(@PathParam("matchId") Integer matchId) throws SQLException {
         Match match = matchRepository.getMatchByMatchId(matchId);
 
         return Response.ok()
