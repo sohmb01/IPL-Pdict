@@ -8,13 +8,13 @@ import java.sql.SQLException;
 public class UserRepository {
     DatabaseInteraction databaseInteraction = new DatabaseInteraction();
 
-    public User getUserById(Integer userId) throws SQLException {
-        String sql = "SELECT * FROM \"user\" WHERE user_id=" + userId + ";";
+    public User getUserByUsername(String username) throws SQLException {
+        String sql = "SELECT * FROM \"user\" WHERE username='" + username + "';";
 
         ResultSet resultSet = databaseInteraction.executeQuery(sql);
         resultSet.next();
 
-        String username = resultSet.getString("username");
+        Integer userId = resultSet.getInt("user_id");
         String password = resultSet.getString("password");
         String fullName = resultSet.getString("full_name");
         String favTeam = resultSet.getString("fav_team");
