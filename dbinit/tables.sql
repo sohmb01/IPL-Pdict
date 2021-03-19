@@ -1,13 +1,12 @@
 CREATE TABLE "user" (
-  "user_id" SERIAL PRIMARY KEY,
-  "username" varchar,
+  "username" varchar PRIMARY KEY UNIQUE,
   "password" varchar,
   "full_name" varchar,
   "fav_team" varchar
 );
 
 CREATE TABLE "prediction" (
-  "user_id" int,
+  "username" varchar UNIQUE,
   "tournament_year" int,
   "orange_cap1" varchar,
   "orange_cap2" varchar,
@@ -19,8 +18,8 @@ CREATE TABLE "prediction" (
   "sf2" varchar,
   "sf3" varchar,
   "sf4" varchar,
-  PRIMARY KEY ("user_id", "tournament_year"),
-  FOREIGN KEY ("user_id") REFERENCES "user" ("user_id")
+  PRIMARY KEY ("username", "tournament_year"),
+  FOREIGN KEY ("username") REFERENCES "user" ("username")
 );
 
 CREATE TABLE "tournament_result" (
@@ -55,7 +54,7 @@ CREATE TABLE "match" (
 );
 
 CREATE TABLE "matchwise_prediction" (
-  "user_id" int,
+  "username" varchar UNIQUE,
   "match_id" int,
   "team_win" varchar,
   "team1_high" int,
@@ -63,16 +62,16 @@ CREATE TABLE "matchwise_prediction" (
   "team2_high" int,
   "team2_low" int,
   "wickets" int,
-  PRIMARY KEY ("user_id", "match_id"),
+  PRIMARY KEY ("username", "match_id"),
   FOREIGN KEY ("team_win") REFERENCES "team" ("team_code"),
-  FOREIGN KEY ("user_id") REFERENCES "user" ("user_id")
+  FOREIGN KEY ("username") REFERENCES "user" ("username")
 );
 
 CREATE TABLE "points" (
-  "user_id" int,
+  "username" varchar UNIQUE,
   "match_id" int,
   "points" int,
-  PRIMARY KEY ("user_id", "match_id"),
-  FOREIGN KEY ("user_id") REFERENCES "user" ("user_id"),
+  PRIMARY KEY ("username", "match_id"),
+  FOREIGN KEY ("username") REFERENCES "user" ("username"),
   FOREIGN KEY ("match_id") REFERENCES "match" ("match_id")
 );
