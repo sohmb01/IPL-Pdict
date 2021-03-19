@@ -1,12 +1,12 @@
 CREATE TABLE "user" (
-  "username" varchar PRIMARY KEY UNIQUE,
+  "username" varchar PRIMARY KEY,
   "password" varchar,
   "full_name" varchar,
   "fav_team" varchar
 );
 
 CREATE TABLE "prediction" (
-  "username" varchar UNIQUE,
+  "username" varchar,
   "tournament_year" int,
   "orange_cap1" varchar,
   "orange_cap2" varchar,
@@ -54,7 +54,7 @@ CREATE TABLE "match" (
 );
 
 CREATE TABLE "matchwise_prediction" (
-  "username" varchar UNIQUE,
+  "username" varchar,
   "match_id" int,
   "team_win" varchar,
   "team1_high" int,
@@ -68,7 +68,7 @@ CREATE TABLE "matchwise_prediction" (
 );
 
 CREATE TABLE "points" (
-  "username" varchar UNIQUE,
+  "username" varchar,
   "match_id" int,
   "points" int,
   PRIMARY KEY ("username", "match_id"),
