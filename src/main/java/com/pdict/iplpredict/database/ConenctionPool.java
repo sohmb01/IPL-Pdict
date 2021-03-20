@@ -15,6 +15,8 @@ public class ConenctionPool {
         Properties props = new Properties();
 
         props.setProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource");
+        props.setProperty("dataSource.serverName", "localhost");
+        props.setProperty("dataSource.portNumber", "5432");
         props.setProperty("dataSource.user", "postgres");
         props.setProperty("dataSource.password", "123456");
         props.setProperty("dataSource.databaseName", "postgres");
