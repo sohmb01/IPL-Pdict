@@ -6,6 +6,8 @@ public class User {
     public String fullName;
     public String favTeam;
 
+    public User() {}
+
     public User(String userName, String password, String fullName, String favTeam) {
         this.userName = userName;
         this.password = password;
