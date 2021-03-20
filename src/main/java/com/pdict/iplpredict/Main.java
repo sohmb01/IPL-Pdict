@@ -6,16 +6,14 @@ import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.net.httpserver.HttpServer;
 
 public class Main {
-
-    public static final String BASE_URI = "http://localhost:8081/myapp/";
-
     public static void main(String[] args) throws Exception {
+        String host = args[0];
+        String port = args[1];
+        String baseURI = "http://"+host+":"+port+"/iplpredict";
 
         final ResourceConfig rc = new PackagesResourceConfig("com.pdict.iplpredict");
-        HttpServer httpServer = HttpServerFactory.create(BASE_URI,rc);
+        HttpServer httpServer = HttpServerFactory.create(baseURI,rc);
         httpServer.start();
-        System.out.println("enter to stop");
-        System.in.read();
-        httpServer.stop(0);
+        System.out.println("HTTP SERVER STARTED ON "+baseURI);
     }
 }
