@@ -1,10 +1,11 @@
 package com.pdict.iplpredict;
 
-import com.pdict.iplpredict.database.*;
-import com.pdict.iplpredict.entities.*;
+import com.pdict.iplpredict.database.MatchRepository;
+import com.pdict.iplpredict.entities.Match;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class MatchService {
     }
 
     @POST
-    @Path("/createMatch/")
+    @Path("/createMatch")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createMatch(Match match) throws SQLException {

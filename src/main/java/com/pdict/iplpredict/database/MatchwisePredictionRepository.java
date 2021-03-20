@@ -1,14 +1,10 @@
 
 package com.pdict.iplpredict.database;
 
-        import com.pdict.iplpredict.entities.Match;
-        import com.pdict.iplpredict.entities.MatchwisePrediction;
-        import com.pdict.iplpredict.entities.User;
+import com.pdict.iplpredict.entities.MatchwisePrediction;
 
-        import java.sql.ResultSet;
-        import java.sql.SQLException;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MatchwisePredictionRepository {
     DatabaseInteraction databaseInteraction = new DatabaseInteraction();

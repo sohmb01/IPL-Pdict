@@ -10,7 +10,8 @@ public class Match {
     public Integer teamScore2;
     public Integer wickets;
 
-
+    public Match() {}
+    
     public Match(Integer matchId, Integer tournamentYear, String teamWin, String teamId1, String teamId2, Integer teamScore1, Integer teamScore2, Integer wickets) {
         this.matchId = matchId;
         this.tournamentYear = tournamentYear;

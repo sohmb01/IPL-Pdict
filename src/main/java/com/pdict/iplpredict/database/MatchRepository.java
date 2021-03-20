@@ -1,7 +1,6 @@
 package com.pdict.iplpredict.database;
 
 import com.pdict.iplpredict.entities.Match;
-import com.pdict.iplpredict.entities.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
