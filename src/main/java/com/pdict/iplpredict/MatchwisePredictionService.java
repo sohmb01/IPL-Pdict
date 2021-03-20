@@ -1,15 +1,14 @@
-
 package com.pdict.iplpredict;
 
-        import com.pdict.iplpredict.database.*;
-        import com.pdict.iplpredict.entities.*;
+import com.pdict.iplpredict.database.MatchwisePredictionRepository;
+import com.pdict.iplpredict.entities.MatchwisePrediction;
 
-        import javax.ws.rs.*;
-        import javax.ws.rs.core.*;
-        import java.sql.SQLException;
-        import java.util.List;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 
-@Path("/match")
+@Path("/matchwisePrediction")
 public class MatchwisePredictionService {
     private MatchwisePredictionRepository matchwisePredictionRepository = new MatchwisePredictionRepository();
 

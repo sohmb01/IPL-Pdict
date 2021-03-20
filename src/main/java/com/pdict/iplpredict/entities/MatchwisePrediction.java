@@ -10,6 +10,8 @@ public class MatchwisePrediction {
     public Integer teamLow2;
     public Integer wickets;
 
+    public MatchwisePrediction() {}
+
     public MatchwisePrediction(String username, Integer matchId, String teamWin, Integer teamHigh1, Integer teamLow1, Integer teamHigh2, Integer teamLow2, Integer wickets) {
         this.username = username;
         this.matchId = matchId;
