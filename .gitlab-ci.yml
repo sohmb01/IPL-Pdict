@@ -1,8 +1,14 @@
 build-and-publish:
   only:
     - master
-    - cipip
   script:
     - mvn clean package
     - cp target/iplpredict.jar /home/pdict/deploy
     - chmod +x /home/pdict/deploy/iplpredict.jar
+
+pipeline-validate:
+  only:
+    - merge_requests
+    - cipip
+  script:
+    - mvn clean compile
