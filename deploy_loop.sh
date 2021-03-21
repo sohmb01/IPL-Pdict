@@ -10,6 +10,7 @@ function block_for_change {
   sleep 3
 }
 
+cd /home/pdict/deploy
 exec -a pdictprocess java -jar iplpredict.jar localhost 8080 &
 while block_for_change; do
   echo "----JAR CHANGED----"
