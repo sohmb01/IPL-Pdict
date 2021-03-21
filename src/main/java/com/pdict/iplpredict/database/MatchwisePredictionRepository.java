@@ -2,7 +2,6 @@
 package com.pdict.iplpredict.database;
 
 import com.pdict.iplpredict.entities.MatchwisePrediction;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
