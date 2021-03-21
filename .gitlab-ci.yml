@@ -1,8 +1,20 @@
-build-and-publish:
+stages:
+  - build
+  - publish
+
+build:
+  stage: build
   only:
     - master
+    - merge_requests
     - cipip
   script:
     - mvn clean package
+
+publish:
+  stage: publish
+  only:
+    - master
+  script:
     - cp target/iplpredict.jar /home/pdict/deploy
     - chmod +x /home/pdict/deploy/iplpredict.jar
