@@ -49,7 +49,7 @@ public class MatchRepository {
     }
 
     public void insertMatch(Match match) throws SQLException {
-        String sql = "INSERT INTO \"match\" (matchId,tournamentYear,teamWin,teamId1,teamId2,teamScore1,teamScore2,wickets) VALUES ("+match.matchId+", "+match.tournamentYear+", '"+match.teamWin+"', '"+match.teamId1+", '"+match.teamId2+", "+match.teamScore1+", "+match.teamScore2+","+match.wickets+")";
+        String sql = "INSERT INTO \"match\" (matchId,tournamentYear,teamWin,teamId1,teamId2,teamScore1,teamScore2,wickets)" + "VALUES " + "("+match.matchId+", "+match.tournamentYear+", '"+match.teamWin+"', '"+match.teamId1+"', '"+match.teamId2+"', "+match.teamScore1+", "+match.teamScore2+","+match.wickets+")";
 
         databaseInteraction.executeUpdate(sql);
     }
