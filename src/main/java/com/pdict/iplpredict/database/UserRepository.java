@@ -14,7 +14,6 @@ public class UserRepository {
         ResultSet resultSet = databaseInteraction.executeQuery(sql);
         resultSet.next();
 
-        Integer userId = resultSet.getInt("user_id");
         String password = resultSet.getString("password");
         String fullName = resultSet.getString("full_name");
         String favTeam = resultSet.getString("fav_team");
