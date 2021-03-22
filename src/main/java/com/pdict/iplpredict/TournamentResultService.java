@@ -40,7 +40,7 @@ public class TournamentResultService {
 
     @DELETE
     @Path("/deleteTournamentResult/{tournament_year}")
-    public Response deleteTournamentResult(Integer tournamentYear) throws SQLException {
+    public Response deleteTournamentResult(@PathParam("tournament_year") Integer tournamentYear) throws SQLException {
         tournamentResultRepository.deleteTournamentResult( tournamentYear);
         return Response.status(200).build();
     }

@@ -1,4 +1,3 @@
-
 package com.pdict.iplpredict.database;
 
 import com.pdict.iplpredict.entities.MatchwisePrediction;
@@ -9,7 +8,7 @@ public class MatchwisePredictionRepository {
     DatabaseInteraction databaseInteraction = new DatabaseInteraction();
 
     public MatchwisePrediction getMatchwisePredictionByMatchIdAndUsername(String username, Integer matchId) throws SQLException {
-        String sql = "SELECT * FROM \"matchwise_prediction\" WHERE username='"+username+"' matchId='"+matchId+"';";
+        String sql = "SELECT * FROM \"matchwise_prediction\" WHERE username='"+username+"' matchId="+matchId+";";
 
         ResultSet resultSet = databaseInteraction.executeQuery(sql);
         resultSet.next();
@@ -26,17 +25,15 @@ public class MatchwisePredictionRepository {
 
 
     public void insertMatchwisePrediction(MatchwisePrediction matchwisePrediction) throws SQLException {
-        String sql = "INSERT INTO \"matchwise_prediction\" VALUES ('"+matchwisePrediction.username+"', '"+matchwisePrediction.matchId+"', '"+matchwisePrediction.teamWin+"', '"+matchwisePrediction.teamHigh1+", '"+matchwisePrediction.teamLow1+", '"+matchwisePrediction.teamHigh2+"', '"+matchwisePrediction.teamLow2+"','"+matchwisePrediction.wickets+"')";
+        String sql = "INSERT INTO \"matchwise_prediction\" VALUES ('"+matchwisePrediction.username+"', "+matchwisePrediction.matchId+", '"+matchwisePrediction.teamWin+"', "+matchwisePrediction.teamHigh1+", "+matchwisePrediction.teamLow1+", "+matchwisePrediction.teamHigh2+", "+matchwisePrediction.teamLow2+","+matchwisePrediction.wickets+")";
 
         databaseInteraction.executeUpdate(sql);
     }
 
 
     public void updateMatchwisePrediction(MatchwisePrediction matchwisePrediction) throws SQLException {
-        String sql = "UPDATE \"matchwise_prediction\" SET username='"+matchwisePrediction.username+"', match_id='"+matchwisePrediction.matchId+"', team_win='"+matchwisePrediction.teamWin+"', team1_high='"+matchwisePrediction.teamHigh1+"', team1_low='"+matchwisePrediction.teamLow1+"', team2_high='"+matchwisePrediction.teamHigh2+"', team2_low='"+matchwisePrediction.teamLow2+"', wickets='"+matchwisePrediction.wickets+"' WHERE match_id="+matchwisePrediction.matchId+" AND username="+matchwisePrediction.username+";";
+        String sql = "UPDATE \"matchwise_prediction\" SET username='"+matchwisePrediction.username+"', match_id="+matchwisePrediction.matchId+", team_win='"+matchwisePrediction.teamWin+"', team1_high="+matchwisePrediction.teamHigh1+", team1_low="+matchwisePrediction.teamLow1+", team2_high="+matchwisePrediction.teamHigh2+", team2_low="+matchwisePrediction.teamLow2+", wickets="+matchwisePrediction.wickets+" WHERE match_id="+matchwisePrediction.matchId+" AND username="+matchwisePrediction.username+";";
 
         databaseInteraction.executeUpdate(sql);
     }
-
-
 }
