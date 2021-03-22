@@ -1,4 +1,3 @@
-
 package com.pdict.iplpredict.database;
 
 import com.pdict.iplpredict.entities.MatchwisePrediction;
@@ -37,6 +36,4 @@ public class MatchwisePredictionRepository {
 
         databaseInteraction.executeUpdate(sql);
     }
-
-
 }

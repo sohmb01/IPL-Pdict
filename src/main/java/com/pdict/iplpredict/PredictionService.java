@@ -14,7 +14,7 @@ public class PredictionService {
     @GET
     @Path("/getPrediction/{username}/{tournament_year}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPrediction(@PathParam("username") String userName , @PathParam("tournament_year") Integer tournamentYear) throws SQLException {
+    public Response getPrediction(@PathParam("username") String userName ,@PathParam("tournament_year") Integer tournamentYear) throws SQLException {
         Prediction prediction = predictionRepository.getPrediction(userName , tournamentYear);
 
         return Response.ok()
@@ -42,7 +42,7 @@ public class PredictionService {
 
     @DELETE
     @Path("/deletePrediction/{username}/{tournament_year}")
-    public Response deletePrediction(String userName , Integer tournamentYear) throws SQLException {
+    public Response deletePrediction(@PathParam("username") String userName ,@PathParam("tournament_year")  Integer tournamentYear) throws SQLException {
         predictionRepository.deletePrediction(userName , tournamentYear);
         return Response.status(200).build();
     }

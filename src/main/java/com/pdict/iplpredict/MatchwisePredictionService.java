@@ -13,7 +13,7 @@ public class MatchwisePredictionService {
     private MatchwisePredictionRepository matchwisePredictionRepository = new MatchwisePredictionRepository();
 
     @GET
-    @Path("/getMatchwisePrediction/{matchId}")
+    @Path("/getMatchwisePrediction/{username}/{matchId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMatchwisePrediction(@PathParam("username") String username, @PathParam("matchId") Integer matchId) throws SQLException {
         MatchwisePrediction matchwisePrediction = matchwisePredictionRepository.getMatchwisePredictionByMatchIdAndUsername(username, matchId);
