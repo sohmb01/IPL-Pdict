@@ -14,7 +14,7 @@ public class TeamService {
     @Get
     @Path("/getTeam/{teamCode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTeam(@PathParam("teamCode") String teamCode) throws SQLException {
+    public Response getTeam( String teamCode) throws SQLException {
         public Team team = teamRepository.getTeamByTeamCode(teamCode);
 
         return Response.ok()
