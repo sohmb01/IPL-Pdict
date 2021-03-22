@@ -42,7 +42,7 @@ public class UserService {
 
     @DELETE
     @Path("/deleteUser/{username}")
-    public Response deleteUser(String userName) throws SQLException {
+    public Response deleteUser(@PathParam("username") String userName) throws SQLException {
         userRepository.deleteUserByUserName(userName);
         return Response.status(200).build();
     }

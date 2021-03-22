@@ -41,7 +41,7 @@ public class TeamService {
 
     @DELETE
     @Path("/deleteTeam/{teamCode}")
-    public Response deleteTeam(String teamCode) throws SQLException {
+    public Response deleteTeam(@PathParam("teamCode") String teamCode) throws SQLException {
         teamRepository.deleteTeam(teamCode);
         return Response.status(200).build();
     }
