@@ -5,6 +5,26 @@ CREATE TABLE "user" (
   "fav_team" varchar
 );
 
+CREATE TABLE "team" (
+  "team_code" varchar PRIMARY KEY,
+  "team_name" varchar
+);
+
+CREATE TABLE "match" (
+  "match_id" int UNIQUE,
+  "tournament_year" int,
+  "team_win" varchar,
+  "team1_id" varchar,
+  "team2_id" varchar,
+  "team1_score" int,
+  "team2_score" int,
+  "wickets" int,
+  PRIMARY KEY ("match_id", "tournament_year"),
+  FOREIGN KEY ("team_win") REFERENCES "team" ("team_code"),
+  FOREIGN KEY ("team2_id") REFERENCES "team" ("team_code"),
+  FOREIGN KEY ("team1_id") REFERENCES "team" ("team_code")
+);
+
 CREATE TABLE "prediction" (
   "username" varchar,
   "tournament_year" int,
@@ -30,27 +50,6 @@ CREATE TABLE "tournament_result" (
   "sf2" varchar,
   "sf3" varchar,
   "sf4" varchar
-);
-
-CREATE TABLE "team" (
-  "team_code" varchar PRIMARY KEY,
-  "team_name" varchar
-);
-
-CREATE TABLE "match" (
-  "match_id" int UNIQUE,
-  "tournament_year" int,
-  "team_win" varchar,
-  "team1_id" varchar,
-  "team2_id" varchar,
-  "team1_score" int,
-  "team2_score" int,
-  "wickets" int,
-  PRIMARY KEY ("match_id", "tournament_year"),
-  FOREIGN KEY ("team_win") REFERENCES "team" ("team_code"),
-  FOREIGN KEY ("team2_id") REFERENCES "team" ("team_code"),
-  FOREIGN KEY ("team1_id") REFERENCES "team" ("team_code"),
-  FOREIGN KEY ("team_win") REFERENCES "team" ("team_code")
 );
 
 CREATE TABLE "matchwise_prediction" (
