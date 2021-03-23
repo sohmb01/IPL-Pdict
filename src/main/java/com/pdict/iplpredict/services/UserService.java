@@ -1,4 +1,4 @@
-package com.pdict.iplpredict;
+package com.pdict.iplpredict.services;
 
 import com.pdict.iplpredict.database.UserRepository;
 import com.pdict.iplpredict.entities.User;

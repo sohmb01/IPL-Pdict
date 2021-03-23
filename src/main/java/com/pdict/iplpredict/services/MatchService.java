@@ -1,4 +1,4 @@
-package com.pdict.iplpredict;
+package com.pdict.iplpredict.services;
 
 import com.pdict.iplpredict.database.MatchRepository;
 import com.pdict.iplpredict.entities.Match;
