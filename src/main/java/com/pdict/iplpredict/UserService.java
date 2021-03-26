@@ -14,8 +14,13 @@ public class UserService {
     @GET
     @Path("/getUser/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUser(@PathParam("username") String userName) throws SQLException {
-        User user = userRepository.getUserByUserName(userName);
+    public Response getUser(@PathParam("username") String userName) {
+        User user = null;
+        try {
+            user = userRepository.getUserByUserName(userName);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
 
         return Response.ok()
                 .entity(user)

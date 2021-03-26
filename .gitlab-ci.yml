@@ -1,14 +1,15 @@
-build-and-publish:
-  only:
-    - master
-  script:
-    - mvn clean package
-    - cp target/iplpredict.jar /home/pdict/deploy
-    - chmod +x /home/pdict/deploy/iplpredict.jar
+  build-and-publish:
+    only:
+      - master
+      - CORS
+    script:
+      - mvn clean package
+      - cp target/iplpredict.jar /home/pdict/deploy
+      - chmod +x /home/pdict/deploy/iplpredict.jar
 
-pipeline-validate:
-  only:
-    - merge_requests
-    - cipip
-  script:
-    - mvn clean compile
+  pipeline-validate:
+    only:
+      - merge_requests
+      - cipip
+    script:
+      - mvn clean compile
