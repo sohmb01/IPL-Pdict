@@ -26,7 +26,7 @@ public class TeamRepository {
     }
 
     public void updateTeam(Team team) throws SQLException {
-        String sql = "UPDATE \"team\" SET team_name='"+team.teamName+"' WHERE team_code="+team.teamCode+";";
+        String sql = "UPDATE \"team\" SET team_name='"+team.teamName+"' WHERE team_code='"+team.teamCode+"';";
 
         databaseInteraction.executeUpdate(sql);
     }

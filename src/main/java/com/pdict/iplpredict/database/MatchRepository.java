@@ -10,7 +10,7 @@ public class MatchRepository {
     DatabaseInteraction databaseInteraction = new DatabaseInteraction();
 
     public Match getMatchByMatchId(Integer matchId) throws SQLException {
-        String sql = "SELECT * FROM \"match\" WHERE matchId="+ matchId +";";
+        String sql = "SELECT * FROM \"match\" WHERE match_id="+ matchId +";";
 
         ResultSet resultSet = databaseInteraction.executeQuery(sql);
         resultSet.next();
@@ -56,7 +56,7 @@ public class MatchRepository {
 
 
     public void updateMatch(Match match) throws SQLException {
-        String sql = "UPDATE \"match\" SET match_id="+match.matchId+", tournament_year="+match.tournamentYear+", team_win='"+match.teamWin+"', team1_id='"+match.teamId1+"', team2_id='"+match.teamId2+"', team1_score="+match.teamScore1+", team2_score="+match.teamScore2+", wickets="+match.wickets+" WHERE match_id="+match.matchId+";";
+        String sql = "UPDATE \"match\" SET match_id="+match.matchId+", tournament_year="+match.tournamentYear+", team_win='"+match.teamWin+"', team1_id='"+match.teamId1+"', team2_id='"+match.teamId2+"', team1_score="+match.teamScore1+", team2_score="+match.teamScore2+", wickets="+match.wickets+" WHERE match_id="+match.matchId+" AND tournament_year="+match.tournamentYear+";";
 
         databaseInteraction.executeUpdate(sql);
     }
