@@ -1,6 +1,5 @@
 package com.pdict.iplpredict.services;
 import com.pdict.iplpredict.database.TeamRepository ;
-import com.pdict.iplpredict.entities.MatchwisePrediction;
 import com.pdict.iplpredict.entities.Team ;
 
 import javax.ws.rs.*;
