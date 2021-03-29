@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IPL 2021 Prediction Game</title>
+
+ 
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        background-image: url("../assets/brand/IPLBG.jpg");
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <link href="user.css" rel="stylesheet">
+  </head>
+  <body class="d-flex h-100 text-center text-white bg-dark">
+    
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="../assets/brand/Ipl2021.JPG" alt="" width="72" height="72">
+      <h2>IPL 2021</h2>
+      <p class="lead">Game on!!</p>
+    </div>
+
+    <div class="row g-3"><div >
+        <h4 class="mb-3">Matchwise Prediction Page</h4>
+        <form class="needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid Username is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="Match Id" class="form-label">Match Id</label>
+              <input type="text" class="form-control" id="MatchId" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid Match ID is required.
+              </div>
+            </div>
+
+            <div class="col-6">
+              <label for="Team Win" class="form-label">Which Team will win?</label>
+              <input type="text" class="form-control" id="team_win">
+              <div class="invalid-feedback">
+                Please enter a team.
+              </div>
+            </div>
+
+            <div class="col-6">
+              <label for="wickets" class="form-label">No of Wickets? </label>
+              <input type="text" class="form-control" id="wickets">
+              <div class="invalid-feedback">
+                Please enter valid wickets.
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <label for="teamscore" class="form-label">team 1 High score</label>
+              <input type="text" class="form-control" id="teamhigh1" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid score required.
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <label for="teamscore" class="form-label">team 1 Low score</label>
+              <input type="text" class="form-control" id="teamlow1" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                 Valid score required.
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <label for="teamscore" class="form-label">team 2 High score</label>
+              <input type="text" class="form-control" id="teamhigh2" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                 Valid score required.
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <label for="teamscore" class="form-label">team 1 low score</label>
+              <input type="text" class="form-control" id="teamlow2" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                 Valid score required.
+              </div>
+            </div>
+
+
+          
+          </div>
+
+          <hr class="my-4">
+
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">SUBMIT</button>
+        </form>
+      
+    </div>
+  </main>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2021 Pdict</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script src="user.js"></script>
+  </body>
+</html>

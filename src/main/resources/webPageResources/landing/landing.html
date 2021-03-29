@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://localhost:58080/iplpredict/assetsResource/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+  font-size: 17px;
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}
+
+.content {
+  position: fixed;
+  bottom: 25%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+#myBtn {
+  width: 200px;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+#myBtn:hover {
+  background: #ddd;
+  color: black;
+}
+</style>
+<link href="http://localhost:58080/iplpredict/landingPage/landing.css" rel="stylesheet">
+</head>
+<body class="d-flex h-100 text-center text-white">
+<video autoplay muted loop preload="auto" id="myVideo">
+  <source src="http://localhost:58080/iplpredict/landingPage/iplvid.mp4" type="video/mp4">
+<!--  <source src="C:\repos\IPL-predict\src\main\resources\webPageResources\landing\iplvid.mp4" type="video/mp4">-->
+</video>
+
+<div class="content">
+    <main class="px-3">
+    <h1>Welcome to IPL Predict Season 4</h1>
+    <p class="lead">Are you ready for another season of nail biting IPL-Predict season?<br> If your answer is 'yes' then click the button to register yourself!</p>
+    <p class="lead">
+      <a href="http://localhost:58080/iplpredict/userPage/user.html" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Register</a>
+      <a href="http://localhost:58080/iplpredict/signInPage/signin.html" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Sign In</a>
+      
+    </p>
+  </main>
+</div>
+
+<script>
+var video = document.getElementById("myVideo");
+var btn = document.getElementById("myBtn");
+
+function myFunction() {
+  if (video.paused) {
+    video.play();
+    btn.innerHTML = "Pause";
+  } else {
+    video.pause();
+    btn.innerHTML = "Play";
+  }
+}
+</script>
+
+</body>
+</html>
