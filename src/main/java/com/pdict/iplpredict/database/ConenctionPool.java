@@ -21,7 +21,6 @@ public class ConenctionPool {
         props.setProperty("dataSource.databaseName", "postgres");
 
         HikariConfig config = new HikariConfig(props);
-        config.setMaximumPoolSize(5);
 
         ds = new HikariDataSource(config);
     }
