@@ -2,20 +2,24 @@ package com.pdict.iplpredict.database;
 
 import com.pdict.iplpredict.entities.UserMatchPrediction;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserMatchPredictionRepository {
-    DatabaseInteraction databaseInteraction = new DatabaseInteraction();
 
     public List<UserMatchPrediction> getUserMatchPredictionsByMatchId(Integer matchId) throws SQLException {
         String sql = "SELECT mp.username, fav_team, match_id, team_win, team1_high, team1_low, team2_high, team2_low,"
                 + " wickets FROM \"match_prediction\" mp JOIN \"user\" u ON mp.username=u.username WHERE " +
                 "match_id=" + matchId + ";";
 
-        ResultSet resultSet = databaseInteraction.executeQuery(sql);
+        Connection conn = ConenctionPool.getConnection();
+        Statement statement = conn.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(sql);
         List<UserMatchPrediction> userMatchPredictions = new ArrayList<>();
 
         while (resultSet.next()) {
@@ -31,6 +35,8 @@ public class UserMatchPredictionRepository {
             userMatchPredictions.add(new UserMatchPrediction(userName, favTeam, matchId, teamWin, teamHigh1,
                     teamLow1, teamHigh2, teamLow2, wickets));
         }
+
+        conn.close();
 
         return userMatchPredictions;
     }

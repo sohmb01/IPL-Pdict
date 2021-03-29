@@ -2,24 +2,30 @@ package com.pdict.iplpredict.database;
 
 import com.pdict.iplpredict.entities.TournamentPrediction;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 
 public class TournamentPredictionRepository {
-    DatabaseInteraction databaseInteraction = new DatabaseInteraction();
 
     public TournamentPrediction getTournamentPrediction(String userName , Integer tournamentYear) throws SQLException {
         String sql = "SELECT * FROM \"tournament_prediction\" WHERE username='" + userName + "' and tournament_year="+ tournamentYear +";" ;
 
-        ResultSet resultSet = databaseInteraction.executeQuery(sql);
+        Connection conn = ConenctionPool.getConnection();
+        Statement statement = conn.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(sql);
         resultSet.next();
 
         String winningTeam = resultSet.getString("winning_team");
         List<String> semiFinalists = Arrays.asList((String [])resultSet.getArray("semi_finalists").getArray());
         List<String> orangeCaps = Arrays.asList((String [])resultSet.getArray("orange_caps").getArray());
         List<String> purpleCaps = Arrays.asList((String [])resultSet.getArray("purple_caps").getArray());
+
+        conn.close();
 
         return new TournamentPrediction(userName, tournamentYear, winningTeam, semiFinalists, orangeCaps, purpleCaps);
     }
@@ -32,7 +38,12 @@ public class TournamentPredictionRepository {
         String sql =
                 "INSERT INTO \"tournament_prediction\" (username, tournament_year, winning_team, semi_finalists, orange_caps, purple_caps) VALUES ('"+ tournamentPrediction.userName+"', '"+ tournamentPrediction.tournamentYear+"', '"+ tournamentPrediction.winningTeam+"', "+semiFinalistsArraySQL+", "+orangeCapsArraySQL+", "+purpleCapsArraySQL+");";
 
-        databaseInteraction.executeUpdate(sql);
+        Connection conn = ConenctionPool.getConnection();
+        Statement statement = conn.createStatement();
+
+        statement.executeUpdate(sql);
+
+        conn.close();
     }
 
     public void updateTournamentPrediction(TournamentPrediction tournamentPrediction) throws SQLException{
@@ -42,12 +53,22 @@ public class TournamentPredictionRepository {
 
         String sql = "UPDATE \"tournament_prediction\" SET winning_team='"+ tournamentPrediction.winningTeam+"', semi_finalists="+semiFinalistsArraySQL+", orange_caps="+orangeCapsArraySQL+", purple_caps="+purpleCapsArraySQL+" WHERE username='"+tournamentPrediction.userName+"' AND tournament_year="+tournamentPrediction.tournamentYear+";";
 
-        databaseInteraction.executeUpdate(sql);
+        Connection conn = ConenctionPool.getConnection();
+        Statement statement = conn.createStatement();
+
+        statement.executeUpdate(sql);
+
+        conn.close();
     }
 
     public void deleteTournamentPrediction(String userName , Integer tournamentYear) throws  SQLException{
         String sql = "DELETE FROM \"tournament_prediction\" WHERE username='"+userName+"' and tournament_year='"+tournamentYear+"' ;";
 
-        databaseInteraction.executeUpdate(sql);
+        Connection conn = ConenctionPool.getConnection();
+        Statement statement = conn.createStatement();
+
+        statement.executeUpdate(sql);
+
+        conn.close();
     }
 }

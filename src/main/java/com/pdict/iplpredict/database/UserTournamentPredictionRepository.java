@@ -2,20 +2,24 @@ package com.pdict.iplpredict.database;
 
 import com.pdict.iplpredict.entities.UserTournamentPrediction;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class UserTournamentPredictionRepository {
-    DatabaseInteraction databaseInteraction = new DatabaseInteraction();
 
     public List<UserTournamentPrediction> getUserTournamentPredictionsByTournamentYear(Integer tournamentYear) throws SQLException {
         String sql = "SELECT tp.username, fav_team, winning_team, semi_finalists, orange_caps, purple_caps FROM " +
                 "\"tournament_prediction\" tp JOIN \"user\" u ON tp.username=u.username WHERE " + "tournament_year=" + tournamentYear + ";";
 
-        ResultSet resultSet = databaseInteraction.executeQuery(sql);
+        Connection conn = ConenctionPool.getConnection();
+        Statement statement = conn.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(sql);
         List<UserTournamentPrediction> userTournamentPredictions = new ArrayList<>();
 
         while (resultSet.next()) {
@@ -29,6 +33,8 @@ public class UserTournamentPredictionRepository {
             userTournamentPredictions.add(new UserTournamentPrediction(userName, favTeam, tournamentYear, winningTeam
                     , semiFinalists, orangeCaps, purpleCaps));
         }
+
+        conn.close();
 
         return userTournamentPredictions;
     }
