@@ -24,4 +24,10 @@ public class UserMatchPrediction {
         this.teamLow2 = teamLow2;
         this.wickets = wickets;
     }
+
+    @Override
+    public String toString() {
+        return "UserMatchPrediction{" + "username='" + username + '\'' + ", favTeam='" + favTeam + '\'' + ", matchId" +
+                "=" + matchId + ", teamWin='" + teamWin + '\'' + ", teamHigh1=" + teamHigh1 + ", teamLow1=" + teamLow1 + ", teamHigh2=" + teamHigh2 + ", teamLow2=" + teamLow2 + ", wickets=" + wickets + '}';
+    }
 }

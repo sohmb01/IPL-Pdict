@@ -23,4 +23,10 @@ public class UserTournamentPrediction {
         this.orangeCaps = orangeCaps;
         this.purpleCaps = purpleCaps;
     }
+
+    @Override
+    public String toString() {
+        return "UserTournamentPrediction{" + "userName='" + userName + '\'' + ", favTeam='" + favTeam + '\'' + ", " +
+                "tournamentYear=" + tournamentYear + ", winningTeam='" + winningTeam + '\'' + ", semiFinalists=" + semiFinalists + ", orangeCaps=" + orangeCaps + ", purpleCaps=" + purpleCaps + '}';
+    }
 }

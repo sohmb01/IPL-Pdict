@@ -10,4 +10,9 @@ public class Team {
         this.teamCode = teamCode;
         this.teamName = teamName;
     }
+
+    @Override
+    public String toString() {
+        return "Team{" + "teamCode='" + teamCode + '\'' + ", teamName='" + teamName + '\'' + '}';
+    }
 }

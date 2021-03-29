@@ -22,4 +22,9 @@ public class MatchPrediction {
         this.teamLow2 = teamLow2;
         this.wickets = wickets;
     }
+
+    @Override
+    public String toString() {
+        return "MatchPrediction{" + "username='" + username + '\'' + ", matchId=" + matchId + ", teamWin='" + teamWin + '\'' + ", teamHigh1=" + teamHigh1 + ", teamLow1=" + teamLow1 + ", teamHigh2=" + teamHigh2 + ", teamLow2=" + teamLow2 + ", wickets=" + wickets + '}';
+    }
 }

@@ -22,4 +22,9 @@ public class Match {
         this.teamScore2 = teamScore2;
         this.wickets = wickets;
     }
+
+    @Override
+    public String toString() {
+        return "Match{" + "matchId=" + matchId + ", tournamentYear=" + tournamentYear + ", teamWin='" + teamWin + '\'' + ", teamId1='" + teamId1 + '\'' + ", teamId2='" + teamId2 + '\'' + ", teamScore1=" + teamScore1 + ", teamScore2=" + teamScore2 + ", wickets=" + wickets + '}';
+    }
 }

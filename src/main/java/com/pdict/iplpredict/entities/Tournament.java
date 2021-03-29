@@ -21,4 +21,10 @@ public class Tournament {
         this.orangeCap = orangeCap;
         this.purpleCap = purpleCap;
     }
+
+    @Override
+    public String toString() {
+        return "Tournament{" + "tournamentYear=" + tournamentYear + ", winningTeam='" + winningTeam + '\'' + ", " +
+                "runnerUpTeam='" + runnerUpTeam + '\'' + ", semiFinalists=" + semiFinalists + ", orangeCap='" + orangeCap + '\'' + ", purpleCap='" + purpleCap + '\'' + '}';
+    }
 }

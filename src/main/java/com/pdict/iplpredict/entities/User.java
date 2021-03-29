@@ -14,4 +14,9 @@ public class User {
         this.fullName = fullName;
         this.favTeam = favTeam;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "userName='" + userName + '\'' + ", password='" + password + '\'' + ", fullName='" + fullName + '\'' + ", favTeam='" + favTeam + '\'' + '}';
+    }
 }
