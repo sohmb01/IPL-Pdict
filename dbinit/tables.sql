@@ -23,6 +23,7 @@ CREATE TABLE "tournament" (
   "tournament_year" int PRIMARY KEY,
   "tournament_start_date" date,
   "tournament_end_date" date,
+  "is_finished" boolean DEFAULT FALSE,
   "winning_team" varchar,
   "runner_up_team" varchar,
   "semi_finalists" varchar[],
