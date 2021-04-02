@@ -9,8 +9,8 @@ import java.sql.Statement;
 
 public class MatchPredictionRepository {
 
-    public MatchPrediction getMatchPredictionByMatchIdAndUsername(String username, Integer matchId) throws SQLException {
-        String sql = "SELECT * FROM \"match_prediction\" WHERE username='"+username+"' AND match_id="+matchId+";";
+    public MatchPrediction getMatchPredictionByMatchIdAndUsername(String username, String matchId) throws SQLException {
+        String sql = "SELECT * FROM \"match_prediction\" WHERE username='"+username+"' AND match_id='"+matchId+"';";
 
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();

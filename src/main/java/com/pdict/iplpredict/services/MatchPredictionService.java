@@ -19,7 +19,7 @@ public class MatchPredictionService {
     @GET
     @Path("/getMatchPrediction/{username}/{matchId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMatchPrediction(@PathParam("username") String username, @PathParam("matchId") Integer matchId) {
+    public Response getMatchPrediction(@PathParam("username") String username, @PathParam("matchId") String matchId) {
         logger.info(Instant.now()+" RECEIVED GET: /getMatchPrediction/"+username+"/"+matchId);
 
         MatchPrediction matchPrediction = null;

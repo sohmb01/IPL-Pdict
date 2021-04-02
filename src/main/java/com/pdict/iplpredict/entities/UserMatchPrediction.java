@@ -3,7 +3,7 @@ package com.pdict.iplpredict.entities;
 public class UserMatchPrediction {
     public String username;
     public String favTeam;
-    public Integer matchId;
+    public String matchId;
     public String teamWin;
     public Integer teamHigh1;
     public Integer teamLow1;
@@ -13,7 +13,7 @@ public class UserMatchPrediction {
 
     public UserMatchPrediction() {}
 
-    public UserMatchPrediction(String username, String favTeam, Integer matchId, String teamWin, Integer teamHigh1, Integer teamLow1, Integer teamHigh2, Integer teamLow2, Integer wickets) {
+    public UserMatchPrediction(String username, String favTeam, String matchId, String teamWin, Integer teamHigh1, Integer teamLow1, Integer teamHigh2, Integer teamLow2, Integer wickets) {
         this.username = username;
         this.favTeam = favTeam;
         this.matchId = matchId;

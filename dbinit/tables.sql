@@ -35,17 +35,21 @@ CREATE TABLE "tournament_prediction" (
   FOREIGN KEY ("winning_team") REFERENCES "team" ("team_code")
 );
 
+CREATE TYPE "match_type" AS ENUM ('normal', 'semifinal', 'final');
+
+--match_id has the format s<season number>-<match number>. for super overs we append -so<superover number> to it.
 CREATE TABLE "match" (
-  "match_id" int UNIQUE,
-  "tournament_year" int,
+  "match_id" varchar PRIMARY KEY,
+  "match_date" date,
+  "match_start_time" time,
+  "is_finished" boolean DEFAULT FALSE,
+  "match_type" match_type DEFAULT 'normal',
   "team_win" varchar,
   "team1_id" varchar,
   "team2_id" varchar,
   "team1_score" int,
   "team2_score" int,
   "wickets" int,
-  PRIMARY KEY ("match_id", "tournament_year"),
-  FOREIGN KEY ("tournament_year") REFERENCES "tournament" ("tournament_year"),
   FOREIGN KEY ("team_win") REFERENCES "team" ("team_code"),
   FOREIGN KEY ("team1_id") REFERENCES "team" ("team_code"),
   FOREIGN KEY ("team2_id") REFERENCES "team" ("team_code")
@@ -53,7 +57,7 @@ CREATE TABLE "match" (
 
 CREATE TABLE "match_prediction" (
   "username" varchar,
-  "match_id" int,
+  "match_id" varchar,
   "team_win" varchar,
   "team1_high" int,
   "team1_low" int,
@@ -66,9 +70,9 @@ CREATE TABLE "match_prediction" (
   FOREIGN KEY ("username") REFERENCES "user" ("username")
 );
 
-CREATE TABLE "points" (
+CREATE TABLE "match_points" (
   "username" varchar,
-  "match_id" int,
+  "match_id" varchar,
   "points" int,
   PRIMARY KEY ("username", "match_id"),
   FOREIGN KEY ("username") REFERENCES "user" ("username"),

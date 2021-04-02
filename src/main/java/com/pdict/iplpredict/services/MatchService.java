@@ -20,7 +20,7 @@ public class MatchService {
     @GET
     @Path("/getMatch/{matchId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMatch(@PathParam("matchId") Integer matchId)  {
+    public Response getMatch(@PathParam("matchId") String matchId)  {
         logger.info(Instant.now()+" RECEIVED GET: /getMatch/"+matchId);
 
         Match match = null;

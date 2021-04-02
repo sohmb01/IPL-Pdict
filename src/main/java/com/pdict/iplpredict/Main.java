@@ -14,6 +14,6 @@ public class Main {
         final ResourceConfig rc = new PackagesResourceConfig("com.pdict.iplpredict");
         HttpServer httpServer = HttpServerFactory.create(baseURI,rc);
         httpServer.start();
-        System.out.println("HTTP SERVER STARTED ON testchange"+baseURI);
+        System.out.println("HTTP SERVER STARTED ON "+baseURI);
     }
 }
