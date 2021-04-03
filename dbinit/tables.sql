@@ -78,3 +78,12 @@ CREATE TABLE "match_points" (
   FOREIGN KEY ("username") REFERENCES "user" ("username"),
   FOREIGN KEY ("match_id") REFERENCES "match" ("match_id")
 );
+
+CREATE TABLE "tournament_points" (
+  "username" varchar,
+  "tournament_year" int,
+  "points" int,
+  PRIMARY KEY ("username", "tournament_year"),
+  FOREIGN KEY ("username") REFERENCES "user" ("username"),
+  FOREIGN KEY ("tournament_year") REFERENCES "tournament" ("tournament_year")
+);

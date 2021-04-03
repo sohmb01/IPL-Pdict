@@ -1,7 +1,7 @@
 package com.pdict.iplpredict.entities;
 
 public class UserMatchPrediction {
-    public String username;
+    public String userName;
     public String favTeam;
     public String matchId;
     public String teamWin;
@@ -13,8 +13,8 @@ public class UserMatchPrediction {
 
     public UserMatchPrediction() {}
 
-    public UserMatchPrediction(String username, String favTeam, String matchId, String teamWin, Integer teamHigh1, Integer teamLow1, Integer teamHigh2, Integer teamLow2, Integer wickets) {
-        this.username = username;
+    public UserMatchPrediction(String userName, String favTeam, String matchId, String teamWin, Integer teamHigh1, Integer teamLow1, Integer teamHigh2, Integer teamLow2, Integer wickets) {
+        this.userName = userName;
         this.favTeam = favTeam;
         this.matchId = matchId;
         this.teamWin = teamWin;
@@ -27,7 +27,7 @@ public class UserMatchPrediction {
 
     @Override
     public String toString() {
-        return "UserMatchPrediction{" + "username='" + username + '\'' + ", favTeam='" + favTeam + '\'' + ", matchId" +
+        return "UserMatchPrediction{" + "username='" + userName + '\'' + ", favTeam='" + favTeam + '\'' + ", matchId" +
                 "=" + matchId + ", teamWin='" + teamWin + '\'' + ", teamHigh1=" + teamHigh1 + ", teamLow1=" + teamLow1 + ", teamHigh2=" + teamHigh2 + ", teamLow2=" + teamLow2 + ", wickets=" + wickets + '}';
     }
 }
