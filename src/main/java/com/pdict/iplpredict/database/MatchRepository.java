@@ -68,7 +68,7 @@ public class MatchRepository {
         List<Match> matches = new ArrayList<Match>();
 
         String sql = "SELECT * FROM \"match\" WHERE match_id LIKE '"+originalMatchId+"-so%'";
-        System.out.println(sql);
+
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
@@ -97,7 +97,7 @@ public class MatchRepository {
 
     public void insertMatch(Match match) throws SQLException {
         String sql = "INSERT INTO \"match\" (match_id,match_date,match_start_time,is_finished,match_type,team_win,team1_id,team2_id,team1_score,team2_score,wickets)" + "VALUES " + "('"+match.matchId+"', '"+match.matchDate+"', '"+match.matchStartTime+"', "+match.isFinished+", '"+match.matchType+"', '"+match.teamWin+"', '"+match.teamId1+"', '"+match.teamId2+"', "+match.teamScore1+", "+match.teamScore2+","+match.wickets+")";
-        System.out.println(sql);
+
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
@@ -108,7 +108,6 @@ public class MatchRepository {
 
     public void updateMatch(Match match) throws SQLException {
         String sql = "UPDATE \"match\" SET match_id='"+match.matchId+"', match_date='"+match.matchDate+"', match_start_time='"+match.matchStartTime+"', is_finished="+match.isFinished+", match_type='"+match.matchType+"', team_win='"+match.teamWin+"', team1_id='"+match.teamId1+"', team2_id='"+match.teamId2+"', team1_score="+match.teamScore1+", team2_score="+match.teamScore2+", wickets="+match.wickets+" WHERE match_id='"+match.matchId+"';";
-        System.out.println(sql);
 
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
