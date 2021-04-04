@@ -23,6 +23,12 @@ public class UserService {
         }
 
         return Response.ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers",
+                        "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                 .entity(user)
                 .build();
     }
@@ -33,7 +39,13 @@ public class UserService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUser(User user) throws SQLException {
         userRepository.insertUser(user);
-        return Response.status(201).build();
+        return Response.status(201).build()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers",
+                        "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD");
     }
 
     @PUT
