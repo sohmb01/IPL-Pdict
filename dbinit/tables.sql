@@ -11,6 +11,14 @@ CREATE TABLE "user" (
   FOREIGN KEY ("fav_team") REFERENCES "team" ("team_code")
 );
 
+CREATE TABLE "login_session" (
+  "username" varchar,
+  "current_auth_token" varchar,
+  "created_timestamp" timestamp,
+  PRIMARY KEY ("username"),
+  FOREIGN KEY ("username") REFERENCES "user" ("username")
+);
+
 CREATE TABLE "tournament" (
   "tournament_year" int PRIMARY KEY,
   "winning_team" varchar,

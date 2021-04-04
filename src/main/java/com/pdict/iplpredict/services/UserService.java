@@ -1,5 +1,6 @@
 package com.pdict.iplpredict.services;
 
+import com.pdict.iplpredict.crypto.SHA512HashGenerator;
 import com.pdict.iplpredict.database.UserRepository;
 import com.pdict.iplpredict.entities.User;
 import org.slf4j.Logger;
@@ -41,9 +42,10 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUser(User user) {
-        logger.info(Instant.now()+" RECEIVED POST: /createUser "+user);
+        logger.info(Instant.now()+" RECEIVED POST: /createUser "+user.userName);
 
         try {
+            user.password = SHA512HashGenerator.getSHA512Hash(user.password);
             userRepository.insertUser(user);
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE POST: /createUser "+user, sqlException);
@@ -60,9 +62,14 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser(User user) {
-        logger.info(Instant.now()+" RECEIVED PUT: /updateUser "+user);
+        logger.info(Instant.now()+" RECEIVED PUT: /updateUser "+user.userName);
 
         try {
+            //if password has to be updated, encrypt it first
+            if(!userRepository.getUserByUserName(user.userName).password.contentEquals(user.password)) {
+                user.password = SHA512HashGenerator.getSHA512Hash(user.password);
+            }
+
             userRepository.updateUser(user);
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE PUT: /updateUser "+user, sqlException);
