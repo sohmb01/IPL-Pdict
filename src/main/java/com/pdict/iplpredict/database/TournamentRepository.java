@@ -1,10 +1,7 @@
 package com.pdict.iplpredict.database;
 import com.pdict.iplpredict.entities.Tournament;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +16,8 @@ public class TournamentRepository {
         ResultSet resultSet = statement.executeQuery(sql);
         resultSet.next();
 
+        Date tournamentStartDate = resultSet.getDate("tournament_start_date");
+        Date tournamentEndDate = resultSet.getDate("tournament_end_date");
         String winningTeam = resultSet.getString("winning_team");
         String runnerUpTeam  =resultSet.getString("runner_up_team");
         List<String> semiFinalists = Arrays.asList((String [])resultSet.getArray("semi_finalists").getArray());
@@ -27,14 +26,14 @@ public class TournamentRepository {
 
         conn.close();
 
-        return new Tournament(tournamentYear, winningTeam, runnerUpTeam, semiFinalists, orangeCap, purpleCap);
+        return new Tournament(tournamentYear, tournamentStartDate, tournamentEndDate, winningTeam, runnerUpTeam, semiFinalists, orangeCap, purpleCap);
     }
 
     public void addTournament(Tournament tournament) throws SQLException {
         String semiFinalistsArraySQL = "'{\""+ tournament.semiFinalists.get(0)+"\",\""+ tournament.semiFinalists.get(1)+"\",\""+ tournament.semiFinalists.get(2)+"\",\""+ tournament.semiFinalists.get(3)+"\"}'";
 
         String sql =
-                "INSERT INTO \"tournament\" (tournament_year, winning_team, runner_up_team, semi_finalists, orange_cap, purple_cap) VALUES ("+tournament.tournamentYear+", '"+ tournament.winningTeam+"', '"+ tournament.runnerUpTeam+"', "+semiFinalistsArraySQL+", '"+tournament.orangeCap+"', '"+tournament.purpleCap+"');";
+                "INSERT INTO \"tournament\" (tournament_year, tournament_start_date, tournament_end_date, winning_team, runner_up_team, semi_finalists, orange_cap, purple_cap) VALUES ("+tournament.tournamentYear+", '"+tournament.tournamentStartDate+"', '"+tournament.tournamentEndDate+"', '"+tournament.winningTeam+"', '"+ tournament.runnerUpTeam+"', "+semiFinalistsArraySQL+", '"+tournament.orangeCap+"', '"+tournament.purpleCap+"');";
 
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
@@ -47,7 +46,7 @@ public class TournamentRepository {
     public void updateTournament(Tournament tournament) throws SQLException{
         String semiFinalistsArraySQL = "'{\""+ tournament.semiFinalists.get(0)+"\",\""+ tournament.semiFinalists.get(1)+"\",\""+ tournament.semiFinalists.get(2)+"\",\""+ tournament.semiFinalists.get(3)+"\"}'";
 
-        String sql = "UPDATE \"tournament\" SET winning_team='"+tournament.winningTeam+"', runner_up_team='"+tournament.runnerUpTeam+"', semi_finalists="+semiFinalistsArraySQL+", orange_cap='"+tournament.orangeCap+"', purple_cap='"+tournament.purpleCap+"' WHERE tournament_year="+tournament.tournamentYear+";";
+        String sql = "UPDATE \"tournament\" SET tournament_start_date='"+tournament.tournamentStartDate+"', tournament_end_date='"+tournament.tournamentEndDate+"', winning_team='"+tournament.winningTeam+"', runner_up_team='"+tournament.runnerUpTeam+"', semi_finalists="+semiFinalistsArraySQL+", orange_cap='"+tournament.orangeCap+"', purple_cap='"+tournament.purpleCap+"' WHERE tournament_year="+tournament.tournamentYear+";";
 
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();

@@ -1,9 +1,12 @@
 package com.pdict.iplpredict.entities;
 
+import java.sql.Date;
 import java.util.List;
 
 public class Tournament {
     public Integer tournamentYear;
+    public Date tournamentStartDate;
+    public Date tournamentEndDate;
     public String winningTeam;
     public String runnerUpTeam;
     public List<String> semiFinalists;
@@ -12,9 +15,10 @@ public class Tournament {
 
     public Tournament(){}
 
-    public Tournament(Integer tournamentYear, String winningTeam, String runnerUpTeam, List<String> semiFinalists,
-                      String orangeCap, String purpleCap) {
+    public Tournament(Integer tournamentYear, Date tournamentStartDate, Date tournamentEndDate, String winningTeam, String runnerUpTeam, List<String> semiFinalists, String orangeCap, String purpleCap) {
         this.tournamentYear = tournamentYear;
+        this.tournamentStartDate = tournamentStartDate;
+        this.tournamentEndDate = tournamentEndDate;
         this.winningTeam = winningTeam;
         this.runnerUpTeam = runnerUpTeam;
         this.semiFinalists = semiFinalists;
@@ -24,7 +28,15 @@ public class Tournament {
 
     @Override
     public String toString() {
-        return "Tournament{" + "tournamentYear=" + tournamentYear + ", winningTeam='" + winningTeam + '\'' + ", " +
-                "runnerUpTeam='" + runnerUpTeam + '\'' + ", semiFinalists=" + semiFinalists + ", orangeCap='" + orangeCap + '\'' + ", purpleCap='" + purpleCap + '\'' + '}';
+        return "Tournament{" +
+                "tournamentYear=" + tournamentYear +
+                ", tournamentStartDate=" + tournamentStartDate +
+                ", tournamentEndDate=" + tournamentEndDate +
+                ", winningTeam='" + winningTeam + '\'' +
+                ", runnerUpTeam='" + runnerUpTeam + '\'' +
+                ", semiFinalists=" + semiFinalists +
+                ", orangeCap='" + orangeCap + '\'' +
+                ", purpleCap='" + purpleCap + '\'' +
+                '}';
     }
 }
