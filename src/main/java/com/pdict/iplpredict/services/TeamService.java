@@ -36,61 +36,61 @@ public class TeamService {
                 .build();
     }
 
-    @POST
-    @Path("/createTeam/")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addTeam(Team team) {
-        logger.info(Instant.now()+" RECEIVED POST: /createTeam "+team);
+//    @POST
+//    @Path("/createTeam/")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response addTeam(Team team) {
+//        logger.info(Instant.now()+" RECEIVED POST: /createTeam "+team);
+//
+//        try {
+//            teamRepository.addTeam(team);
+//        } catch (SQLException sqlException) {
+//            logger.error(Instant.now()+" DBOPFAILURE POST: /createTeam "+team, sqlException);
+//
+//            return Response.status(500).build();
+//        }
+//
+//        logger.info(Instant.now()+" DBOPSUCCESS POST: /createTeam "+team);
+//
+//        return Response.status(201).build();
+//    }
 
-        try {
-            teamRepository.addTeam(team);
-        } catch (SQLException sqlException) {
-            logger.error(Instant.now()+" DBOPFAILURE POST: /createTeam "+team, sqlException);
+//    @PUT
+//    @Path("/updateTeam")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response updateTeam(Team team) {
+//        logger.info(Instant.now()+" RECEIVED PUT: /updateTeam "+team);
+//
+//        try {
+//            teamRepository.updateTeam(team);
+//        } catch (SQLException sqlException) {
+//            logger.error(Instant.now()+" DBOPFAILURE PUT: /updateTeam "+team, sqlException);
+//
+//            return Response.status(500).build();
+//        }
+//
+//        logger.info(Instant.now()+" DBOPSUCCESS PUT: /updateTeam "+team);
+//
+//        return Response.status(201).build();
+//    }
 
-            return Response.status(500).build();
-        }
-
-        logger.info(Instant.now()+" DBOPSUCCESS POST: /createTeam "+team);
-
-        return Response.status(201).build();
-    }
-
-    @PUT
-    @Path("/updateTeam")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateTeam(Team team) {
-        logger.info(Instant.now()+" RECEIVED PUT: /updateTeam "+team);
-
-        try {
-            teamRepository.updateTeam(team);
-        } catch (SQLException sqlException) {
-            logger.error(Instant.now()+" DBOPFAILURE PUT: /updateTeam "+team, sqlException);
-
-            return Response.status(500).build();
-        }
-
-        logger.info(Instant.now()+" DBOPSUCCESS PUT: /updateTeam "+team);
-
-        return Response.status(201).build();
-    }
-
-    @DELETE
-    @Path("/deleteTeam/{teamCode}")
-    public Response deleteTeam(@PathParam("teamCode") String teamCode) {
-        logger.info("RECEIVED DELETE: /deleteTeam/"+teamCode);
-
-        try {
-            teamRepository.deleteTeam(teamCode);
-        } catch (SQLException sqlException) {
-            logger.error(Instant.now()+" DBOPFAILURE DELETE: /deleteTeam/"+teamCode, sqlException);
-
-            return Response.status(500).build();
-        }
-
-        logger.info(Instant.now()+" DBOPSUCCESS DELETE: /deleteTeam/"+teamCode);
-
-        return Response.status(200).build();
-    }
+//    @DELETE
+//    @Path("/deleteTeam/{teamCode}")
+//    public Response deleteTeam(@PathParam("teamCode") String teamCode) {
+//        logger.info("RECEIVED DELETE: /deleteTeam/"+teamCode);
+//
+//        try {
+//            teamRepository.deleteTeam(teamCode);
+//        } catch (SQLException sqlException) {
+//            logger.error(Instant.now()+" DBOPFAILURE DELETE: /deleteTeam/"+teamCode, sqlException);
+//
+//            return Response.status(500).build();
+//        }
+//
+//        logger.info(Instant.now()+" DBOPSUCCESS DELETE: /deleteTeam/"+teamCode);
+//
+//        return Response.status(200).build();
+//    }
 }

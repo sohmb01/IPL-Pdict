@@ -59,44 +59,42 @@ public class MatchService {
                 .build();
     }
 
-    @POST
-    @Path("/createMatch")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createMatch(Match match)  {
-        logger.info(Instant.now()+" RECEIVED POST: /createMatch "+match);
+//    @POST
+//    @Path("/createMatch")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response createMatch(Match match)  {
+//        logger.info(Instant.now()+" RECEIVED POST: /createMatch "+match);
+//
+//        try {
+//            matchRepository.insertMatch(match);
+//        } catch (SQLException sqlException) {
+//            logger.error(Instant.now()+" DBOPFAILURE POST: /createMatch "+match, sqlException);
+//            return Response.status(500).build();
+//        }
+//
+//        logger.info(Instant.now()+" DBOPSUCCESS POST: /createMatch "+match);
+//
+//        return Response.status(201).build();
+//    }
 
-        try {
-            matchRepository.insertMatch(match);
-        } catch (SQLException sqlException) {
-            logger.error(Instant.now()+" DBOPFAILURE POST: /createMatch "+match, sqlException);
-            return Response.status(500).build();
-        }
-
-        logger.info(Instant.now()+" DBOPSUCCESS POST: /createMatch "+match);
-
-        return Response.status(201).build();
-    }
-
-    @PUT
-    @Path("/updateMatch")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateMatch(Match match) {
-        logger.info(Instant.now()+" RECEIVED PUT: /updateMatch "+match);
-
-        try {
-            matchRepository.updateMatch(match);
-        } catch (SQLException sqlException) {
-            logger.error(Instant.now()+" DBOPFAILURE PUT: /updateMatch "+match, sqlException);
-            return Response.status(500).build();
-        }
-
-        logger.info(Instant.now()+" DBOPSUCCESS PUT: /updateMatch "+match);
-
-        return Response.status(201).build();
-    }
-
-
+//    @PUT
+//    @Path("/updateMatch")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response updateMatch(Match match) {
+//        logger.info(Instant.now()+" RECEIVED PUT: /updateMatch "+match);
+//
+//        try {
+//            matchRepository.updateMatch(match);
+//        } catch (SQLException sqlException) {
+//            logger.error(Instant.now()+" DBOPFAILURE PUT: /updateMatch "+match, sqlException);
+//            return Response.status(500).build();
+//        }
+//
+//        logger.info(Instant.now()+" DBOPSUCCESS PUT: /updateMatch "+match);
+//
+//        return Response.status(201).build();
+//    }
 }
 
