@@ -1,4 +1,5 @@
 package com.pdict.iplpredict.services;
+import com.pdict.iplpredict.database.LoginSessionRepository;
 import com.pdict.iplpredict.database.TeamRepository ;
 import com.pdict.iplpredict.entities.Team ;
 import org.slf4j.Logger;
@@ -12,16 +13,23 @@ import java.time.Instant;
 @Path("/team")
 public class TeamService {
     private TeamRepository teamRepository = new TeamRepository() ;
+    LoginSessionRepository loginSessionRepository = new LoginSessionRepository();
     Logger logger = LoggerFactory.getLogger(TeamService.class);
 
     @GET
     @Path("/getTeam/{teamCode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTeam(@PathParam("teamCode") String teamCode) {
+    public Response getTeam(@HeaderParam("HeaderUsername") String headerUsername, @HeaderParam("AccessToken") String accessToken, @PathParam("teamCode") String teamCode) {
         logger.info(Instant.now()+" RECEIVED GET: /getTeam/"+teamCode);
 
         Team team = null;
         try {
+            String activeToken = loginSessionRepository.getActiveToken(headerUsername);
+            if(activeToken==null || !activeToken.contentEquals(accessToken)) {
+                logger.info(Instant.now()+" AUTHORIZATION FAILURE GET: /getTeam/"+teamCode);
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
             team = teamRepository.getTeamByTeamCode(teamCode);
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE GET: /getTeam/"+teamCode, sqlException);

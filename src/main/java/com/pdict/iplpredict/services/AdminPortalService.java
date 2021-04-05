@@ -10,10 +10,7 @@ import com.pdict.iplpredict.tournamentPointsCalculator.TournamentPointsCalculato
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -30,15 +27,22 @@ public class AdminPortalService {
     TournamentRepository tournamentRepository = new TournamentRepository();
     TournamentPointsCalculator tournamentPointsCalculator = new TournamentPointsCalculator();
     PointsRepository pointsRepository = new PointsRepository();
+    LoginSessionRepository loginSessionRepository = new LoginSessionRepository();
 
     @POST
     @Path("/matchEnded")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response matchEnded(Match match) {
+    public Response matchEnded(@HeaderParam("HeaderUsername") String headerUsername, @HeaderParam("AccessToken") String accessToken, Match match) {
         logger.info(Instant.now()+" RECEIVED POST: /matchEnded "+match);
 
         try {
+            String activeToken = loginSessionRepository.getActiveToken("admin");
+            if(!headerUsername.contentEquals("admin") || activeToken==null || !activeToken.contentEquals(accessToken)) {
+                logger.info(Instant.now()+" AUTHORIZATION FAILURE POST: /matchEnded "+match);
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
             matchRepository.updateMatch(match);
 
             List<UserMatchPrediction> userMatchPredictions = userMatchPredictionRepository.getUserMatchPredictionsByMatchId(match.matchId);
@@ -65,10 +69,16 @@ public class AdminPortalService {
     @Path("/tournamentEnded")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response tournamentEnded(Tournament tournament) {
+    public Response tournamentEnded(@HeaderParam("HeaderUsername") String headerUsername, @HeaderParam("AccessToken") String accessToken, Tournament tournament) {
         logger.info(Instant.now()+" RECEIVED POST: /tournamentEnded "+tournament);
 
         try {
+            String activeToken = loginSessionRepository.getActiveToken("admin");
+            if(!headerUsername.contentEquals("admin") || activeToken==null || !activeToken.contentEquals(accessToken)) {
+                logger.info(Instant.now()+" AUTHORIZATION FAILURE POST: /tournamentEnded "+tournament);
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
             tournamentRepository.updateTournament(tournament);
 
             List<UserTournamentPrediction> userTournamentPredictions = userTournamentPredictionRepository.getUserTournamentPredictionsByTournamentYear(tournament.tournamentYear);

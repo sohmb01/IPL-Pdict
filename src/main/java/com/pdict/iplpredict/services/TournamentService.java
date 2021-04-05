@@ -1,5 +1,6 @@
 package com.pdict.iplpredict.services;
 
+import com.pdict.iplpredict.database.LoginSessionRepository;
 import com.pdict.iplpredict.database.TournamentRepository;
 import com.pdict.iplpredict.entities.Tournament;
 import org.slf4j.Logger;
@@ -13,16 +14,23 @@ import java.time.Instant;
 @Path("/tournament")
 public class TournamentService {
     private TournamentRepository tournamentRepository = new TournamentRepository();
+    LoginSessionRepository loginSessionRepository = new LoginSessionRepository();
     Logger logger = LoggerFactory.getLogger(TournamentService.class);
 
     @GET
     @Path("/getTournament/{tournament_year}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTournament(@PathParam("tournament_year") Integer tournamentYear){
+    public Response getTournament(@HeaderParam("HeaderUsername") String headerUsername, @HeaderParam("AccessToken") String accessToken, @PathParam("tournament_year") Integer tournamentYear){
         logger.info(Instant.now()+" RECEIVED GET: /getTournament/"+tournamentYear);
-        
+
         Tournament tournament = null;
         try {
+            String activeToken = loginSessionRepository.getActiveToken(headerUsername);
+            if(activeToken==null || !activeToken.contentEquals(accessToken)) {
+                logger.info(Instant.now()+" AUTHORIZATION FAILURE GET: /getTournament/"+tournamentYear);
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
             tournament = tournamentRepository.getTournament(tournamentYear);
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE GET: /getTournament/"+tournamentYear, sqlException);

@@ -20,7 +20,7 @@ public class LoginSessionRepository {
         conn.close();
     }
 
-    public Optional<String> getActiveToken(String username) throws SQLException {
+    public String getActiveToken(String username) throws SQLException {
         String sql = "SELECT * FROM \"login_session\" WHERE username='"+username+"';";
 
         Connection conn = ConenctionPool.getConnection();
@@ -29,12 +29,13 @@ public class LoginSessionRepository {
         ResultSet resultSet = statement.executeQuery(sql);
 
         if(!resultSet.next())
-            return Optional.empty();
+            return null;
         else {
            Timestamp createdTimestamp = resultSet.getTimestamp("created_timestamp");
-           return  isTimeDifferenceLessThan(createdTimestamp, 120) ? Optional.of(resultSet.getString("current_auth_token")) : Optional.empty();
+           return  isTimeDifferenceLessThan(createdTimestamp, 120) ? resultSet.getString("current_auth_token") : null;
         }
     }
+
     private Boolean isTimeDifferenceLessThan(Timestamp timestamp, Integer minutes) {
         return ChronoUnit.MINUTES.between(timestamp.toInstant(), Instant.now()) < minutes;
     }

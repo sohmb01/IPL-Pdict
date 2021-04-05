@@ -1,5 +1,6 @@
 package com.pdict.iplpredict.services;
 
+import com.pdict.iplpredict.database.LoginSessionRepository;
 import com.pdict.iplpredict.database.MatchRepository;
 import com.pdict.iplpredict.entities.Match;
 import org.slf4j.Logger;
@@ -15,16 +16,23 @@ import java.util.List;
 @Path("/match")
 public class MatchService {
     private MatchRepository matchRepository = new MatchRepository();
+    LoginSessionRepository loginSessionRepository = new LoginSessionRepository();
     Logger logger = LoggerFactory.getLogger(MatchService.class);
 
     @GET
     @Path("/getMatch/{matchId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMatch(@PathParam("matchId") String matchId)  {
+    public Response getMatch(@HeaderParam("HeaderUsername") String headerUsername, @HeaderParam("AccessToken") String accessToken, @PathParam("matchId") String matchId)  {
         logger.info(Instant.now()+" RECEIVED GET: /getMatch/"+matchId);
 
         Match match = null;
         try {
+            String activeToken = loginSessionRepository.getActiveToken(headerUsername);
+            if(activeToken==null || !activeToken.contentEquals(accessToken)) {
+                logger.info(Instant.now()+" AUTHORIZATION FAILURE GET: /getMatch/"+matchId);
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
             match = matchRepository.getMatchByMatchId(matchId);
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE GET: /getMatch/"+matchId, sqlException);
@@ -41,11 +49,17 @@ public class MatchService {
     @GET
     @Path("/getAllMatches")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllMatches()  {
+    public Response getAllMatches(@HeaderParam("HeaderUsername") String headerUsername, @HeaderParam("AccessToken") String accessToken)  {
         logger.info(Instant.now()+" RECEIVED GET: /getAllMatches");
 
         List<Match> matches = null;
         try {
+            String activeToken = loginSessionRepository.getActiveToken(headerUsername);
+            if(activeToken==null || !activeToken.contentEquals(accessToken)) {
+                logger.info(Instant.now()+" AUTHORIZATION FAILURE GET: /getAllMatches");
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
             matches = matchRepository.getAllMatches();
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE GET: /getAllMatches", sqlException);
