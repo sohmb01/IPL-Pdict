@@ -1,13 +1,16 @@
 package com.pdict.iplpredict.services;
 
 import com.pdict.iplpredict.database.LoginSessionRepository;
+import com.pdict.iplpredict.database.TournamentRepository;
 import com.pdict.iplpredict.database.TournamentPredictionRepository;
+import com.pdict.iplpredict.entities.Tournament;
 import com.pdict.iplpredict.entities.TournamentPrediction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.Instant;
 
@@ -15,6 +18,7 @@ import java.time.Instant;
 public class TournamentPredictionService {
     private TournamentPredictionRepository tournamentPredictionRepository = new TournamentPredictionRepository();
     LoginSessionRepository loginSessionRepository = new LoginSessionRepository();
+    TournamentRepository tournamentRepository = new TournamentRepository();
     Logger logger = LoggerFactory.getLogger(TournamentPredictionService.class);
 
     @GET
@@ -58,8 +62,14 @@ public class TournamentPredictionService {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
+            if(isPredictDeadlinePassed(tournamentPrediction.tournamentYear)) {
+                logger.info(Instant.now()+" INVALID REQUEST: Deadline has Passed POST: /createTournamentPrediction "+tournamentPrediction);
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
+
             tournamentPredictionRepository.addTournamentPrediction( tournamentPrediction);
-        } catch (SQLException sqlException) {
+        }
+        catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE POST: /createTournamentPrediction "+tournamentPrediction, sqlException);
             return Response.status(500).build();
         }
@@ -83,8 +93,14 @@ public class TournamentPredictionService {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
+            if(isPredictDeadlinePassed(tournamentPrediction.tournamentYear)) {
+                logger.info(Instant.now()+" INVALID REQUEST: Deadline has Passed PUT: /updateTournamentPrediction "+tournamentPrediction);
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
+
             tournamentPredictionRepository.updateTournamentPrediction(tournamentPrediction);
-        } catch (SQLException sqlException) {
+        }
+        catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE PUT: /updateTournamentPrediction "+tournamentPrediction, sqlException);
             return Response.status(500).build();
         }
@@ -92,5 +108,11 @@ public class TournamentPredictionService {
         logger.info(Instant.now()+" DBOPSUCCESS PUT: /updateTournamentPrediction "+tournamentPrediction);
 
         return Response.status(201).build();
+    }
+
+    private Boolean isPredictDeadlinePassed(Integer tournamentYear) throws SQLException {
+        Tournament tournament = tournamentRepository.getTournament(tournamentYear);
+
+        return Date.from(Instant.now()).after(tournament.tournamentStartDate);
     }
 }

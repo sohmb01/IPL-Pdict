@@ -1,7 +1,9 @@
 package com.pdict.iplpredict.services;
 
 import com.pdict.iplpredict.database.LoginSessionRepository;
+import com.pdict.iplpredict.entities.Match;
 import com.pdict.iplpredict.database.MatchPredictionRepository;
+import com.pdict.iplpredict.database.MatchRepository;
 import com.pdict.iplpredict.entities.MatchPrediction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +13,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.sql.Timestamp;
 
 @Path("/matchPrediction")
 public class MatchPredictionService {
     private MatchPredictionRepository matchPredictionRepository = new MatchPredictionRepository();
     LoginSessionRepository loginSessionRepository = new LoginSessionRepository();
+    MatchRepository matchRepository = new MatchRepository();
     Logger logger = LoggerFactory.getLogger(MatchPredictionService.class);
 
     @GET
@@ -59,8 +63,14 @@ public class MatchPredictionService {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
+            if(isPredictDeadlinePassed(matchPrediction.matchId)) {
+                logger.info(Instant.now()+" INVALID REQUEST: Deadline has Passed POST: /createMatchPrediction "+matchPrediction);
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
+
             matchPredictionRepository.insertMatchPrediction(matchPrediction);
-        } catch (SQLException sqlException) {
+        }
+        catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE POST: /createMatchPrediction "+matchPrediction, sqlException);
             return Response.status(500).build();
         }
@@ -84,8 +94,14 @@ public class MatchPredictionService {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
+            if(isPredictDeadlinePassed(matchPrediction.matchId)) {
+                logger.info(Instant.now()+" INVALID REQUEST: Deadline has Passed PUT: /updateMatchPrediction "+matchPrediction);
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
+
             matchPredictionRepository.updateMatchPrediction(matchPrediction);
-        } catch (SQLException sqlException) {
+        }
+        catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE PUT: /updateMatchPrediction "+matchPrediction, sqlException);
             return Response.status(500).build();
         }
@@ -93,6 +109,15 @@ public class MatchPredictionService {
         logger.info(Instant.now()+" DBOPSUCCESS PUT: /updateMatchPrediction "+matchPrediction);
 
         return Response.status(201).build();
+    }
+
+    private Boolean isPredictDeadlinePassed(String matchId) throws SQLException {
+        Match match = matchRepository.getMatchByMatchId(matchId);
+
+        String matchStartTime = match.matchDate+" "+match.matchStartTime;
+        Timestamp matchStartTimestamp = Timestamp.valueOf(matchStartTime) ;
+
+        return Timestamp.from(Instant.now()).after(matchStartTimestamp);
     }
 }
 
