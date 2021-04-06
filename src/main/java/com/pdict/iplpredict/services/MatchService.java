@@ -10,7 +10,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/match")
@@ -71,6 +73,45 @@ public class MatchService {
         return Response.ok()
                 .entity(matches)
                 .build();
+    }
+
+    @GET
+    @Path("/getAllActiveMatches")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllActiveMatches(@HeaderParam("HeaderUsername") String headerUsername, @HeaderParam("AccessToken") String accessToken)  {
+        logger.info(Instant.now()+" RECEIVED GET: /getAllActiveMatches");
+
+        List<Match> activeMatches = new ArrayList<>();
+        try {
+            String activeToken = loginSessionRepository.getActiveToken(headerUsername);
+            if(activeToken==null || !activeToken.contentEquals(accessToken)) {
+                logger.info(Instant.now()+" AUTHORIZATION FAILURE GET: /getAllActiveMatches");
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
+            List<Match> matches = matchRepository.getAllMatches();
+            for(Match match : matches) {
+                if(isPredictionPossibleForMatch(match)) {
+                    activeMatches.add(match);
+                }
+            }
+        } catch (SQLException sqlException) {
+            logger.error(Instant.now()+" DBOPFAILURE GET: /getAllActiveMatches", sqlException);
+            return Response.status(500).build();
+        }
+
+        logger.info(Instant.now()+" DBOPSUCCESS GET: /getAllActiveMatches");
+
+        return Response.ok()
+                .entity(activeMatches)
+                .build();
+    }
+
+    private Boolean isPredictionPossibleForMatch(Match match) {
+        String matchStartTime = match.matchDate+" "+match.matchStartTime;
+        Timestamp matchStartTimestamp = Timestamp.valueOf(matchStartTime) ;
+
+        return !Timestamp.from(Instant.now()).after(matchStartTimestamp);
     }
 
 //    @POST
