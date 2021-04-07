@@ -5,8 +5,11 @@ import java.sql.Time;
 
 public class Match {
     public String matchId;
-    public Date matchDate;
-    public Time matchStartTime;
+    public Integer matchStartMinute;
+    public Integer matchStartHour;
+    public Integer matchStartDay;
+    public Integer matchStartMonth;
+    public Integer matchStartYear;
     public Boolean isFinished;
     public String matchType;
     public String teamWin;
@@ -18,10 +21,13 @@ public class Match {
 
     public Match() {}
 
-    public Match(String matchId, Date matchDate, Time matchStartTime, Boolean isFinished, String matchType, String teamWin, String teamId1, String teamId2, Integer teamScore1, Integer teamScore2, Integer wickets) {
+    public Match(String matchId, Integer matchStartMinute, Integer matchStartHour, Integer matchStartDay, Integer matchStartMonth, Integer matchStartYear, Boolean isFinished, String matchType, String teamWin, String teamId1, String teamId2, Integer teamScore1, Integer teamScore2, Integer wickets) {
         this.matchId = matchId;
-        this.matchDate = matchDate;
-        this.matchStartTime = matchStartTime;
+        this.matchStartMinute = matchStartMinute;
+        this.matchStartHour = matchStartHour;
+        this.matchStartDay = matchStartDay;
+        this.matchStartMonth = matchStartMonth;
+        this.matchStartYear = matchStartYear;
         this.isFinished = isFinished;
         this.matchType = matchType;
         this.teamWin = teamWin;
@@ -36,8 +42,11 @@ public class Match {
     public String toString() {
         return "Match{" +
                 "matchId='" + matchId + '\'' +
-                ", matchDate=" + matchDate +
-                ", matchStartTime=" + matchStartTime +
+                ", matchStartMinute=" + matchStartMinute +
+                ", matchStartHour=" + matchStartHour +
+                ", matchStartDay=" + matchStartDay +
+                ", matchStartMonth=" + matchStartMonth +
+                ", matchStartYear=" + matchStartYear +
                 ", isFinished=" + isFinished +
                 ", matchType='" + matchType + '\'' +
                 ", teamWin='" + teamWin + '\'' +

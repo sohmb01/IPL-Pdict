@@ -16,16 +16,19 @@ public class MatchLeaderboardRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
         List<UserPoints> pointsList = new ArrayList<>();
 
-        while (resultSet.next()){
-            String username = resultSet.getString("username");
-            Integer matchPoints = resultSet.getInt("points");
-            pointsList.add(new UserPoints(username,matchPoints));
-        }
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-        conn.close();
+            while (resultSet.next()) {
+                String username = resultSet.getString("username");
+                Integer matchPoints = resultSet.getInt("points");
+                pointsList.add(new UserPoints(username, matchPoints));
+            }
+        } finally {
+            conn.close();
+        }
 
         return pointsList;
     }

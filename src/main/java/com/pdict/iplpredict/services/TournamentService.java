@@ -32,6 +32,10 @@ public class TournamentService {
             }
 
             tournament = tournamentRepository.getTournament(tournamentYear);
+
+            if(tournament==null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE GET: /getTournament/"+tournamentYear, sqlException);
             return Response.status(500).build();

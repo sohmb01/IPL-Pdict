@@ -15,42 +15,52 @@ public class MatchPredictionRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
-        resultSet.next();
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-        String teamWin = resultSet.getString("team_win");
-        Integer teamHigh1 = resultSet.getInt("team1_high");
-        Integer teamLow1 = resultSet.getInt("team1_low");
-        Integer teamHigh2 = resultSet.getInt("team2_high");
-        Integer teamLow2 = resultSet.getInt("team2_low");
-        Integer wickets = resultSet.getInt("wickets");
+            if(resultSet.next()) {
 
-        conn.close();
+                String teamWin = resultSet.getString("team_win");
+                Integer teamHigh1 = resultSet.getInt("team1_high");
+                Integer teamLow1 = resultSet.getInt("team1_low");
+                Integer teamHigh2 = resultSet.getInt("team2_high");
+                Integer teamLow2 = resultSet.getInt("team2_low");
+                Integer wickets = resultSet.getInt("wickets");
 
-        return new MatchPrediction(username, matchId, teamWin, teamHigh1, teamLow1, teamHigh2, teamLow2, wickets);
+                return new MatchPrediction(username, matchId, teamWin, teamHigh1, teamLow1, teamHigh2, teamLow2, wickets);
+            } else {
+                return null;
+            }
+        } finally {
+            conn.close();
+        }
     }
 
 
     public void insertMatchPrediction(MatchPrediction matchPrediction) throws SQLException {
-        String sql = "INSERT INTO \"match_prediction\" VALUES ('"+ matchPrediction.username+"', "+ matchPrediction.matchId+", '"+ matchPrediction.teamWin+"', "+ matchPrediction.teamHigh1+", "+ matchPrediction.teamLow1+", "+ matchPrediction.teamHigh2+", "+ matchPrediction.teamLow2+","+ matchPrediction.wickets+")";
+        String sql = "INSERT INTO \"match_prediction\" VALUES ('"+ matchPrediction.userName +"', '"+ matchPrediction.matchId+"', '"+ matchPrediction.teamWin+"', "+ matchPrediction.teamHigh1+", "+ matchPrediction.teamLow1+", "+ matchPrediction.teamHigh2+", "+ matchPrediction.teamLow2+","+ matchPrediction.wickets+")";
 
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        } finally {
+            conn.close();
+        }
     }
 
 
     public void updateMatchPrediction(MatchPrediction matchPrediction) throws SQLException {
-        String sql = "UPDATE \"match_prediction\" SET username='"+ matchPrediction.username+"', match_id="+ matchPrediction.matchId+", team_win='"+ matchPrediction.teamWin+"', team1_high="+ matchPrediction.teamHigh1+", team1_low="+ matchPrediction.teamLow1+", team2_high="+ matchPrediction.teamHigh2+", team2_low="+ matchPrediction.teamLow2+", wickets="+ matchPrediction.wickets+" WHERE match_id="+ matchPrediction.matchId+" AND username='"+ matchPrediction.username+"';";
+        String sql = "UPDATE \"match_prediction\" SET username='"+ matchPrediction.userName +"', match_id='"+ matchPrediction.matchId+"', team_win='"+ matchPrediction.teamWin+"', team1_high="+ matchPrediction.teamHigh1+", team1_low="+ matchPrediction.teamLow1+", team2_high="+ matchPrediction.teamHigh2+", team2_low="+ matchPrediction.teamLow2+", wickets="+ matchPrediction.wickets+" WHERE match_id='"+ matchPrediction.matchId+"' AND username='"+ matchPrediction.userName +"';";
 
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        } finally {
+            conn.close();
+        }
     }
 }

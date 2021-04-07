@@ -35,7 +35,7 @@ public class AuthenticationService {
             User user = userRepository.getUserByUserName(loginCredentials.userName);
 
             //if password shas don't match, return unauthorized
-            if(!user.password.contentEquals(passwordSha512)) {
+            if(user==null || !user.password.contentEquals(passwordSha512)) {
                 return Response.status(Response.Status.FORBIDDEN).build();
             }
             else {

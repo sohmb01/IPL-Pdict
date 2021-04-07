@@ -19,24 +19,27 @@ public class UserMatchPredictionRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
         List<UserMatchPrediction> userMatchPredictions = new ArrayList<>();
 
-        while (resultSet.next()) {
-            String userName = resultSet.getString("username");
-            String favTeam = resultSet.getString("fav_team");
-            String teamWin = resultSet.getString("team_win");
-            Integer teamHigh1 = resultSet.getInt("team1_high");
-            Integer teamLow1 = resultSet.getInt("team1_low");
-            Integer teamHigh2 = resultSet.getInt("team2_high");
-            Integer teamLow2 = resultSet.getInt("team2_low");
-            Integer wickets = resultSet.getInt("wickets");
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-            userMatchPredictions.add(new UserMatchPrediction(userName, favTeam, matchId, teamWin, teamHigh1,
-                    teamLow1, teamHigh2, teamLow2, wickets));
+            while (resultSet.next()) {
+                String userName = resultSet.getString("username");
+                String favTeam = resultSet.getString("fav_team");
+                String teamWin = resultSet.getString("team_win");
+                Integer teamHigh1 = resultSet.getInt("team1_high");
+                Integer teamLow1 = resultSet.getInt("team1_low");
+                Integer teamHigh2 = resultSet.getInt("team2_high");
+                Integer teamLow2 = resultSet.getInt("team2_low");
+                Integer wickets = resultSet.getInt("wickets");
+
+                userMatchPredictions.add(new UserMatchPrediction(userName, favTeam, matchId, teamWin, teamHigh1,
+                        teamLow1, teamHigh2, teamLow2, wickets));
+            }
+        } finally {
+            conn.close();
         }
-
-        conn.close();
 
         return userMatchPredictions;
     }
@@ -49,24 +52,27 @@ public class UserMatchPredictionRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
         List<UserMatchPrediction> userMatchPredictions = new ArrayList<>();
 
-        while (resultSet.next()) {
-            String superOverMatchId = resultSet.getString("so_match_id");
-            String favTeam = resultSet.getString("fav_team");
-            String teamWin = resultSet.getString("team_win");
-            Integer teamHigh1 = resultSet.getInt("team1_high");
-            Integer teamLow1 = resultSet.getInt("team1_low");
-            Integer teamHigh2 = resultSet.getInt("team2_high");
-            Integer teamLow2 = resultSet.getInt("team2_low");
-            Integer wickets = resultSet.getInt("wickets");
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-            userMatchPredictions.add(new UserMatchPrediction(userName, favTeam, superOverMatchId, teamWin, teamHigh1,
-                    teamLow1, teamHigh2, teamLow2, wickets));
+            while (resultSet.next()) {
+                String superOverMatchId = resultSet.getString("so_match_id");
+                String favTeam = resultSet.getString("fav_team");
+                String teamWin = resultSet.getString("team_win");
+                Integer teamHigh1 = resultSet.getInt("team1_high");
+                Integer teamLow1 = resultSet.getInt("team1_low");
+                Integer teamHigh2 = resultSet.getInt("team2_high");
+                Integer teamLow2 = resultSet.getInt("team2_low");
+                Integer wickets = resultSet.getInt("wickets");
+
+                userMatchPredictions.add(new UserMatchPrediction(userName, favTeam, superOverMatchId, teamWin, teamHigh1,
+                        teamLow1, teamHigh2, teamLow2, wickets));
+            }
+        } finally {
+            conn.close();
         }
-
-        conn.close();
 
         return userMatchPredictions;
     }

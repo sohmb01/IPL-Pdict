@@ -10,9 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.time.ZoneId;
 
 @Path("/tournamentPrediction")
 public class TournamentPredictionService {
@@ -36,6 +37,10 @@ public class TournamentPredictionService {
             }
 
             tournamentPrediction = tournamentPredictionRepository.getTournamentPrediction(userName , tournamentYear);
+
+            if(tournamentPrediction==null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE GET: /getTournamentPrediction/"+userName+"/"+tournamentYear, sqlException);
             return Response.status(500).build();
@@ -62,7 +67,13 @@ public class TournamentPredictionService {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
-            if(isPredictDeadlinePassed(tournamentPrediction.tournamentYear)) {
+            Tournament tournament = tournamentRepository.getTournament(tournamentPrediction.tournamentYear);
+            if(tournament==null) {
+                logger.info(Instant.now()+" INVALID REQUEST: tournamentYear doesn't exist POST: /createTournamentPrediction "+tournamentPrediction);
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
+
+            if(isPredictDeadlinePassed(tournament)) {
                 logger.info(Instant.now()+" INVALID REQUEST: Deadline has Passed POST: /createTournamentPrediction "+tournamentPrediction);
                 return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             }
@@ -93,7 +104,13 @@ public class TournamentPredictionService {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
-            if(isPredictDeadlinePassed(tournamentPrediction.tournamentYear)) {
+            Tournament tournament = tournamentRepository.getTournament(tournamentPrediction.tournamentYear);
+            if(tournament==null) {
+                logger.info(Instant.now()+" INVALID REQUEST: tournamentYear doesn't exist PUT: /updateTournamentPrediction "+tournamentPrediction);
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
+
+            if(isPredictDeadlinePassed(tournament)) {
                 logger.info(Instant.now()+" INVALID REQUEST: Deadline has Passed PUT: /updateTournamentPrediction "+tournamentPrediction);
                 return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             }
@@ -110,9 +127,10 @@ public class TournamentPredictionService {
         return Response.status(201).build();
     }
 
-    private Boolean isPredictDeadlinePassed(Integer tournamentYear) throws SQLException {
-        Tournament tournament = tournamentRepository.getTournament(tournamentYear);
+    private Boolean isPredictDeadlinePassed(Tournament tournament) throws SQLException {
+        LocalDate currentdate = LocalDate.now(ZoneId.of("Asia/Kolkata"));
+        LocalDate tournamentStartDate = LocalDate.of(tournament.tournamentStartYear, tournament.tournamentStartMonth, tournament.tournamentStartDay);
 
-        return Date.from(Instant.now()).after(tournament.tournamentStartDate);
+        return currentdate.isAfter(tournamentStartDate);
     }
 }

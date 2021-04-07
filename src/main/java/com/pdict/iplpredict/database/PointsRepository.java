@@ -12,9 +12,11 @@ public class PointsRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        } finally {
+            conn.close();
+        }
     }
 
     public void insertTournamentPoints(String userName, Integer tournamentYear, Integer points) throws SQLException {
@@ -23,8 +25,10 @@ public class PointsRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        } finally {
+            conn.close();
+        }
     }
 }

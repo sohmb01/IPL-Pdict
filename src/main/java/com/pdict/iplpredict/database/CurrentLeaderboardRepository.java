@@ -16,34 +16,45 @@ public class CurrentLeaderboardRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
-        return resultSet.getInt("points");
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
+            if(resultSet.next()) {
+                return resultSet.getInt("points");
+            } else {
+                return 0;
+            }
+        } finally {
+            conn.close();
+        }
     }
-    public List <UserPoints> getCurrentLeaderboard(Integer tournamentYear) throws SQLException {
+
+    public List<UserPoints> getCurrentLeaderboard(Integer tournamentYear) throws SQLException {
         String sql = "SELECT username, SUM(points) as total_points FROM \"match_points\" GROUP BY username ORDER BY total_points DESC;";
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
         List<UserPoints> pointsList = new ArrayList<>();
 
-        while (resultSet.next()){
-            String username = resultSet.getString("username");
-            Integer tournamentPoints = resultSet.getInt("total_points");
-            pointsList.add(new UserPoints(username,tournamentPoints));
-        }
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-        Tournament tournament = tournamentRepository.getTournament(tournamentYear);
-        if (tournament.isFinished){
-            for (UserPoints userPoints : pointsList){
-                userPoints.matchPoints += getBonusPoints(userPoints.username);
+            while (resultSet.next()) {
+                String username = resultSet.getString("username");
+                Integer tournamentPoints = resultSet.getInt("total_points");
+                pointsList.add(new UserPoints(username, tournamentPoints));
             }
-        }
 
-        conn.close();
+            Tournament tournament = tournamentRepository.getTournament(tournamentYear);
+            if (tournament!=null && tournament.isFinished) {
+                for (UserPoints userPoints : pointsList) {
+                    userPoints.matchPoints += getBonusPoints(userPoints.username);
+                }
+            }
+        } finally {
+            conn.close();
+        }
 
         return pointsList;
-
     }
 }

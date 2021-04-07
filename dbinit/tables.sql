@@ -21,8 +21,12 @@ CREATE TABLE "login_session" (
 
 CREATE TABLE "tournament" (
   "tournament_year" int PRIMARY KEY,
-  "tournament_start_date" date,
-  "tournament_end_date" date,
+  "tournament_start_day" int,
+  "tournament_start_month" int,
+  "tournament_start_year" int,
+  "tournament_end_day" int,
+  "tournament_end_month" int,
+  "tournament_end_year" int,
   "is_finished" boolean DEFAULT FALSE,
   "winning_team" varchar,
   "runner_up_team" varchar,
@@ -51,8 +55,11 @@ CREATE TYPE "match_type" AS ENUM ('normal', 'semifinal', 'final');
 --match_id has the format s<season number>-<match number>. for super overs we append -so<superover number> to it.
 CREATE TABLE "match" (
   "match_id" varchar PRIMARY KEY,
-  "match_date" date,
-  "match_start_time" time,
+  "match_start_minute" int,
+  "match_start_hour" int,
+  "match_start_day" int,
+  "match_start_month" int,
+  "match_start_year" int,
   "is_finished" boolean DEFAULT FALSE,
   "match_type" match_type DEFAULT 'normal',
   "team_win" varchar,

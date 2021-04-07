@@ -17,17 +17,24 @@ public class TournamentPredictionRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
-        resultSet.next();
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-        String winningTeam = resultSet.getString("winning_team");
-        List<String> semiFinalists = Arrays.asList((String [])resultSet.getArray("semi_finalists").getArray());
-        List<String> orangeCaps = Arrays.asList((String [])resultSet.getArray("orange_caps").getArray());
-        List<String> purpleCaps = Arrays.asList((String [])resultSet.getArray("purple_caps").getArray());
+            if(resultSet.next()) {
+                String winningTeam = resultSet.getString("winning_team");
+                List<String> semiFinalists = Arrays.asList((String[]) resultSet.getArray("semi_finalists").getArray());
+                List<String> orangeCaps = Arrays.asList((String[]) resultSet.getArray("orange_caps").getArray());
+                List<String> purpleCaps = Arrays.asList((String[]) resultSet.getArray("purple_caps").getArray());
 
-        conn.close();
+                return new TournamentPrediction(userName, tournamentYear, winningTeam, semiFinalists, orangeCaps, purpleCaps);
+            } else {
+                return null;
+            }
+        } finally {
+            conn.close();
+        }
 
-        return new TournamentPrediction(userName, tournamentYear, winningTeam, semiFinalists, orangeCaps, purpleCaps);
+
     }
 
     public void addTournamentPrediction(TournamentPrediction tournamentPrediction) throws SQLException {
@@ -41,9 +48,11 @@ public class TournamentPredictionRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        } finally {
+            conn.close();
+        }
     }
 
     public void updateTournamentPrediction(TournamentPrediction tournamentPrediction) throws SQLException{
@@ -56,19 +65,21 @@ public class TournamentPredictionRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        } finally {
+            conn.close();
+        }
     }
 
-    public void deleteTournamentPrediction(String userName , Integer tournamentYear) throws  SQLException{
-        String sql = "DELETE FROM \"tournament_prediction\" WHERE username='"+userName+"' and tournament_year='"+tournamentYear+"' ;";
-
-        Connection conn = ConenctionPool.getConnection();
-        Statement statement = conn.createStatement();
-
-        statement.executeUpdate(sql);
-
-        conn.close();
-    }
+//    public void deleteTournamentPrediction(String userName , Integer tournamentYear) throws  SQLException{
+//        String sql = "DELETE FROM \"tournament_prediction\" WHERE username='"+userName+"' and tournament_year='"+tournamentYear+"' ;";
+//
+//        Connection conn = ConenctionPool.getConnection();
+//        Statement statement = conn.createStatement();
+//
+//        statement.executeUpdate(sql);
+//
+//        conn.close();
+//    }
 }

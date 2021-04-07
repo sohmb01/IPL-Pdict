@@ -19,22 +19,25 @@ public class UserTournamentPredictionRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
         List<UserTournamentPrediction> userTournamentPredictions = new ArrayList<>();
 
-        while (resultSet.next()) {
-            String userName = resultSet.getString("username");
-            String favTeam = resultSet.getString("fav_team");
-            String winningTeam = resultSet.getString("winning_team");
-            List<String> semiFinalists = Arrays.asList((String [])resultSet.getArray("semi_finalists").getArray());
-            List<String> orangeCaps = Arrays.asList((String [])resultSet.getArray("orange_caps").getArray());
-            List<String> purpleCaps = Arrays.asList((String [])resultSet.getArray("purple_caps").getArray());
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-            userTournamentPredictions.add(new UserTournamentPrediction(userName, favTeam, tournamentYear, winningTeam
-                    , semiFinalists, orangeCaps, purpleCaps));
+            while (resultSet.next()) {
+                String userName = resultSet.getString("username");
+                String favTeam = resultSet.getString("fav_team");
+                String winningTeam = resultSet.getString("winning_team");
+                List<String> semiFinalists = Arrays.asList((String[]) resultSet.getArray("semi_finalists").getArray());
+                List<String> orangeCaps = Arrays.asList((String[]) resultSet.getArray("orange_caps").getArray());
+                List<String> purpleCaps = Arrays.asList((String[]) resultSet.getArray("purple_caps").getArray());
+
+                userTournamentPredictions.add(new UserTournamentPrediction(userName, favTeam, tournamentYear, winningTeam
+                        , semiFinalists, orangeCaps, purpleCaps));
+            }
+        } finally {
+            conn.close();
         }
-
-        conn.close();
 
         return userTournamentPredictions;
     }

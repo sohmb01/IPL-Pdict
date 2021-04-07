@@ -31,6 +31,10 @@ public class TeamService {
             }
 
             team = teamRepository.getTeamByTeamCode(teamCode);
+
+            if(team==null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE GET: /getTeam/"+teamCode, sqlException);
 

@@ -12,6 +12,8 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,10 @@ public class MatchService {
             }
 
             match = matchRepository.getMatchByMatchId(matchId);
+
+            if(match==null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE GET: /getMatch/"+matchId, sqlException);
             return Response.status(500).build();
@@ -108,10 +114,10 @@ public class MatchService {
     }
 
     private Boolean isPredictionPossibleForMatch(Match match) {
-        String matchStartTime = match.matchDate+" "+match.matchStartTime;
-        Timestamp matchStartTimestamp = Timestamp.valueOf(matchStartTime) ;
+        LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        LocalDateTime matchStartDateTime = LocalDateTime.of(match.matchStartYear, match.matchStartMonth, match.matchStartDay, match.matchStartHour, match.matchStartMinute);
 
-        return !Timestamp.from(Instant.now()).after(matchStartTimestamp);
+        return currentDateTime.isBefore(matchStartDateTime);
     }
 
 //    @POST

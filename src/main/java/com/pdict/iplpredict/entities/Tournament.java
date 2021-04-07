@@ -5,8 +5,12 @@ import java.util.List;
 
 public class Tournament {
     public Integer tournamentYear;
-    public Date tournamentStartDate;
-    public Date tournamentEndDate;
+    public Integer tournamentStartDay;
+    public Integer tournamentStartMonth;
+    public Integer tournamentStartYear;
+    public Integer tournamentEndDay;
+    public Integer tournamentEndMonth;
+    public Integer tournamentEndYear;
     public Boolean isFinished;
     public String winningTeam;
     public String runnerUpTeam;
@@ -16,11 +20,14 @@ public class Tournament {
 
     public Tournament(){}
 
-
-    public Tournament(Integer tournamentYear, Date tournamentStartDate, Date tournamentEndDate, Boolean isFinished, String winningTeam, String runnerUpTeam, List<String> semiFinalists, String orangeCap, String purpleCap) {
+    public Tournament(Integer tournamentYear, Integer tournamentStartDay, Integer tournamentStartMonth, Integer tournamentStartYear, Integer tournamentEndDay, Integer tournamentEndMonth, Integer tournamentEndYear, Boolean isFinished, String winningTeam, String runnerUpTeam, List<String> semiFinalists, String orangeCap, String purpleCap) {
         this.tournamentYear = tournamentYear;
-        this.tournamentStartDate = tournamentStartDate;
-        this.tournamentEndDate = tournamentEndDate;
+        this.tournamentStartDay = tournamentStartDay;
+        this.tournamentStartMonth = tournamentStartMonth;
+        this.tournamentStartYear = tournamentStartYear;
+        this.tournamentEndDay = tournamentEndDay;
+        this.tournamentEndMonth = tournamentEndMonth;
+        this.tournamentEndYear = tournamentEndYear;
         this.isFinished = isFinished;
         this.winningTeam = winningTeam;
         this.runnerUpTeam = runnerUpTeam;
@@ -33,8 +40,12 @@ public class Tournament {
     public String toString() {
         return "Tournament{" +
                 "tournamentYear=" + tournamentYear +
-                ", tournamentStartDate=" + tournamentStartDate +
-                ", tournamentEndDate=" + tournamentEndDate +
+                ", tournamentStartDay=" + tournamentStartDay +
+                ", tournamentStartMonth=" + tournamentStartMonth +
+                ", tournamentStartYear=" + tournamentStartYear +
+                ", tournamentEndDay=" + tournamentEndDay +
+                ", tournamentEndMonth=" + tournamentEndMonth +
+                ", tournamentEndYear=" + tournamentEndYear +
                 ", isFinished=" + isFinished +
                 ", winningTeam='" + winningTeam + '\'' +
                 ", runnerUpTeam='" + runnerUpTeam + '\'' +

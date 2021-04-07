@@ -16,16 +16,19 @@ public class TournamentBonusLeaderboardRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
         List<UserPoints> pointsList = new ArrayList<>();
 
-        while (resultSet.next()){
-            String username = resultSet.getString("username");
-            Integer tournamentBonusPoints = resultSet.getInt("points");
-            pointsList.add(new UserPoints(username,tournamentBonusPoints));
-        }
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-        conn.close();
+            while (resultSet.next()) {
+                String username = resultSet.getString("username");
+                Integer tournamentBonusPoints = resultSet.getInt("points");
+                pointsList.add(new UserPoints(username, tournamentBonusPoints));
+            }
+        } finally {
+            conn.close();
+        }
 
         return pointsList;
     }

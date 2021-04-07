@@ -13,7 +13,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.time.Instant;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Path("/matchPrediction")
 public class MatchPredictionService {
@@ -37,6 +38,10 @@ public class MatchPredictionService {
             }
 
             matchPrediction = matchPredictionRepository.getMatchPredictionByMatchIdAndUsername(username, matchId);
+
+            if(matchPrediction==null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
         } catch (SQLException sqlException) {
             logger.error(Instant.now()+" DBOPFAILURE GET: /getMatchPrediction/"+username+"/"+matchId, sqlException);
             return Response.status(500).build();
@@ -58,12 +63,18 @@ public class MatchPredictionService {
 
         try {
             String activeToken = loginSessionRepository.getActiveToken(headerUsername);
-            if(activeToken==null || !activeToken.contentEquals(accessToken) || !matchPrediction.username.contentEquals(headerUsername)) {
+            if(activeToken==null || !activeToken.contentEquals(accessToken) || !matchPrediction.userName.contentEquals(headerUsername)) {
                 logger.info(Instant.now()+" AUTHORIZATION FAILURE POST: /createMatchPrediction "+matchPrediction);
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
-            if(isPredictDeadlinePassed(matchPrediction.matchId)) {
+            Match match = matchRepository.getMatchByMatchId(matchPrediction.matchId);
+            if(match==null) {
+                logger.info(Instant.now()+" INVALID REQUEST: MatchId doesnt exist POST: /createMatchPrediction "+matchPrediction);
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
+
+            if(isPredictDeadlinePassed(match)) {
                 logger.info(Instant.now()+" INVALID REQUEST: Deadline has Passed POST: /createMatchPrediction "+matchPrediction);
                 return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             }
@@ -89,12 +100,18 @@ public class MatchPredictionService {
 
         try {
             String activeToken = loginSessionRepository.getActiveToken(headerUsername);
-            if(activeToken==null || !activeToken.contentEquals(accessToken) || !matchPrediction.username.contentEquals(headerUsername)) {
+            if(activeToken==null || !activeToken.contentEquals(accessToken) || !matchPrediction.userName.contentEquals(headerUsername)) {
                 logger.info(Instant.now()+" AUTHORIZATION FAILURE PUT: /updateMatchPrediction "+matchPrediction);
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
-            if(isPredictDeadlinePassed(matchPrediction.matchId)) {
+            Match match = matchRepository.getMatchByMatchId(matchPrediction.matchId);
+            if(match==null) {
+                logger.info(Instant.now()+" INVALID REQUEST: MatchId doesnt exist PUT: /updateMatchPrediction "+matchPrediction);
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
+
+            if(isPredictDeadlinePassed(match)) {
                 logger.info(Instant.now()+" INVALID REQUEST: Deadline has Passed PUT: /updateMatchPrediction "+matchPrediction);
                 return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             }
@@ -111,13 +128,11 @@ public class MatchPredictionService {
         return Response.status(201).build();
     }
 
-    private Boolean isPredictDeadlinePassed(String matchId) throws SQLException {
-        Match match = matchRepository.getMatchByMatchId(matchId);
+    private Boolean isPredictDeadlinePassed(Match match) throws SQLException {
+        LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        LocalDateTime matchStartDateTime = LocalDateTime.of(match.matchStartYear, match.matchStartMonth, match.matchStartDay, match.matchStartHour, match.matchStartMinute);
 
-        String matchStartTime = match.matchDate+" "+match.matchStartTime;
-        Timestamp matchStartTimestamp = Timestamp.valueOf(matchStartTime) ;
-
-        return Timestamp.from(Instant.now()).after(matchStartTimestamp);
+        return currentDateTime.isAfter(matchStartDateTime);
     }
 }
 

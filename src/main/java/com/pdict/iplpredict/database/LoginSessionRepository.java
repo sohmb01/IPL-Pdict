@@ -15,9 +15,12 @@ public class LoginSessionRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        }
+        finally {
+            conn.close();
+        }
     }
 
     public String getActiveToken(String username) throws SQLException {
@@ -26,13 +29,18 @@ public class LoginSessionRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-        if(!resultSet.next())
-            return null;
-        else {
-           Timestamp createdTimestamp = resultSet.getTimestamp("created_timestamp");
-           return  isTimeDifferenceLessThan(createdTimestamp, 120) ? resultSet.getString("current_auth_token") : null;
+            if (!resultSet.next()) {
+                return null;
+            } else {
+                Timestamp createdTimestamp = resultSet.getTimestamp("created_timestamp");
+
+                return isTimeDifferenceLessThan(createdTimestamp, 120) ? resultSet.getString("current_auth_token") : null;
+            }
+        } finally {
+            conn.close();
         }
     }
 

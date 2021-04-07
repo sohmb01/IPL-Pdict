@@ -15,16 +15,21 @@ public class UserRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
-        resultSet.next();
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
 
-        String password = resultSet.getString("password");
-        String fullName = resultSet.getString("full_name");
-        String favTeam = resultSet.getString("fav_team");
+            if (resultSet.next()) {
+                String password = resultSet.getString("password");
+                String fullName = resultSet.getString("full_name");
+                String favTeam = resultSet.getString("fav_team");
 
-        conn.close();
-
-        return new User(userName, password, fullName, favTeam);
+                return new User(userName, password, fullName, favTeam);
+            } else {
+                return null;
+            }
+        } finally {
+            conn.close();
+        }
     }
 
     public void insertUser(User user) throws SQLException {
@@ -33,9 +38,12 @@ public class UserRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        }
+        finally {
+            conn.close();
+        }
     }
 
     public void updateUser(User user) throws SQLException {
@@ -44,9 +52,12 @@ public class UserRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        }
+        finally {
+            conn.close();
+        }
     }
 
     public void deleteUserByUserName(String userName) throws SQLException {
@@ -55,8 +66,11 @@ public class UserRepository {
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
-        statement.executeUpdate(sql);
-
-        conn.close();
+        try {
+            statement.executeUpdate(sql);
+        }
+        finally {
+            conn.close();
+        }
     }
 }
