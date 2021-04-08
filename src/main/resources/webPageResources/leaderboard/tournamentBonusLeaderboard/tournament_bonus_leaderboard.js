@@ -1,20 +1,40 @@
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
+/*
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+fetch("http://103.78.121.142:58080/iplpredict/tournamentBonusLeaderboard/getTournamentBonusLeaderboard/2021",
+method: "GET", // or 'PUT'
+    headers: {
+      HeaderUsername: Cookies.get("HeaderUsername"),
+      AccessToken: Cookies.get("AccessToken"),
+    }
+)
+  .then((response) => response.json())
+  .then((result) => {
+    console.log(result.data);
+    // buildTable(result);
+    var table = document.getElementById("myTable");
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
+    for (var i = 0; i < result.data.length; i++) {
+      var row = `<tr class="text-white">
+             <td>${result.data[i].email}</td>
+             <td>${result.data[i].first_name}</td>
+           </tr>`;
+      table.innerHTML += row;
+    }
+  });
+
+/*
+function buildTable(data) {
+  var table = document.getElementById("myTable");
+
+  for (var i = 0; i < data.length; i++) {
+    var row = `<tr>
+            <td>${data[i].email}</td>
+            <td>${data[i].first_name}</td>
+            <td>${data[i].last_name}</td>
+            <td>${data[i].avatar}</td>
+          </tr>`;
+    table.innerHTML += row;
+  }
+}
+*/

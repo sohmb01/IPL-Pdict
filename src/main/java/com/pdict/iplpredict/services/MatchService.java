@@ -108,6 +108,11 @@ public class MatchService {
 
         logger.info(Instant.now()+" DBOPSUCCESS GET: /getAllActiveMatches");
 
+        activeMatches.sort((a,b)-> {
+            return LocalDateTime.of(a.matchStartYear, a.matchStartMonth, a.matchStartDay, a.matchStartHour, a.matchStartMinute)
+                    .isBefore(LocalDateTime.of(b.matchStartYear, b.matchStartMonth, b.matchStartDay, b.matchStartHour, b.matchStartMinute)) ? -1 : 1;
+        });
+
         return Response.ok()
                 .entity(activeMatches)
                 .build();

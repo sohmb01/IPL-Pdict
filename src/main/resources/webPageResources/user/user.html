@@ -8,8 +8,7 @@
 
 
   <!-- Bootstrap core CSS -->
-  <link href="http://103.78.121.142:58080/iplpredict/assetsResource/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
   <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -17,7 +16,7 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-        background-image: url("../assets/brand/IPLBG.jpg");
+
       }
 
       @media (min-width: 768px) {
@@ -31,13 +30,13 @@
   <link href="http://103.78.121.142:58080/iplpredict/userPage/user.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
 <div class="container">
   <main>
     <div class="py-5 text-center">
-      <img class="d-block mx-auto mb-4" src="../assets/brand/Ipl2021.JPG" alt="" width="72" height="72">
+      <img class="d-block mx-auto mb-4" src="http://103.78.121.142:58080/iplpredict/assetsResource/brand/Ipl2021.jpg" alt="" width="72" height="72">
       <h2>IPL 2021</h2>
       <p class="lead">Game on!!</p>
+
     </div>
 
     <div class="row g-3"><div >
@@ -48,7 +47,7 @@
 
             <div class="col-12">
               <label for="fullName" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="fullName" placeholder="" value="" required>
+              <input type="text" class="form-control" id="fullName" placeholder="Full Name" value="" required>
               <div class="invalid-feedback">
                 Valid full name is required.
               </div>
@@ -67,16 +66,18 @@
 
             <div class="col-12">
               <label for="password" class="form-label">Password </label>
-              <input type="password" class="form-control" id="password">
-              <div class="invalid-feedback">
-                Please enter a valid password.
+              <div class="input-group has-validation">
+                <input type="password" class="form-control" id="password" required>
+                <div class="invalid-feedback">
+                  Please enter a valid password.
+                </div>
               </div>
             </div>
 
 
 
             <div class="col-md-5">
-              <label for="team" class="form-label">Fav team</label>
+              <label for="team" class="form-label">Favourite Team</label>
               <select class="form-select" id="team" required>
                 <option value="">Choose...</option>
                 <option>MI</option>
@@ -89,7 +90,7 @@
                 <option>SRH</option>
               </select>
               <div class="invalid-feedback">
-                Please select a valid team.
+                Please select a team.
               </div>
             </div>
 
@@ -108,17 +109,21 @@
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2021 Pdict</p>
-    <ul class="list-inline">
-      <li class="list-inline-item"><a href="#">Privacy</a></li>
-      <li class="list-inline-item"><a href="#">Terms</a></li>
-      <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
+    <!--
+     <ul class="list-inline">
+       <li class="list-inline-item"><a href="#">Privacy</a></li>
+       <li class="list-inline-item"><a href="#">Terms</a></li>
+       <li class="list-inline-item"><a href="#">Support</a></li>
+     </ul>
+     -->
   </footer>
 </div>
 
 
-<script src="http://103.78.121.142:58080/iplpredict/assetsResource/dist/js/bootstrap.bundle.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 <script src="http://103.78.121.142:58080/iplpredict/userPage/user.js"></script>
 </body>
 </html>

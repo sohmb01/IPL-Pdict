@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IPL 2021 Prediction Game</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPL 2021 Prediction Game</title>
 
- 
 
-    <!-- Bootstrap core CSS -->
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
+  <!-- Bootstrap core CSS -->
+  <link href="http://103.78.121.142:58080/iplpredict/assetsResource/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-        background-image: url("../assets/brand/IPLBG.jpg");
       }
 
       @media (min-width: 768px) {
@@ -27,113 +26,141 @@
       }
     </style>
 
-    
-    <link href="user.css" rel="stylesheet">
-  </head>
-  <body class="d-flex h-100 text-center text-white bg-dark">
-    
-<div class="container">
+
+  <link href="http://103.78.121.142:58080/iplpredict/matchPredictionPage/match_prediction.css" rel="stylesheet">
+</head>
+<body class="d-flex h-100 text-center text-white bg-dark">
+
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <h3 class="float-md-start mb-0">IPL 2021</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+      <a class="nav-link" aria-current="page" href="http://103.78.121.142:58080/iplpredict/coverPage/cover.html">Home</a>
+      <a class="nav-link" href="http://103.78.121.142:58080/iplpredict/tournamentPredictionPage/tournament_prediction.html">Tournament Prediction</a>
+      <a class="nav-link active" href="http://103.78.121.142:58080/iplpredict/matchPredictionPage/match_prediction.html">Match Prediction</a>
+      <a class="nav-link " href="http://103.78.121.142:58080/iplpredict/leaderboardPage/currentLeaderboard/current_leaderboard.html">Leaderboard</a>
+    </nav>
+  </header>
+
+
   <main>
     <div class="py-5 text-center">
-      <img class="d-block mx-auto mb-4" src="../assets/brand/Ipl2021.JPG" alt="" width="72" height="72">
+      <img class="d-block mx-auto mb-4" src="http://103.78.121.142:58080/iplpredict/assetsResource/brand/Ipl2021.jpg" alt="" width="72" height="72">
       <h2>IPL 2021</h2>
       <p class="lead">Game on!!</p>
     </div>
 
     <div class="row g-3"><div >
-        <h4 class="mb-3">Matchwise Prediction Page</h4>
+      <h4 class="mb-3">Matchwise Prediction Page</h4>
+      <div id="match_prediction">
+
         <form class="needs-validation" novalidate>
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid Username is required.
+              <div id="usernamedata">
+
               </div>
             </div>
 
             <div class="col-sm-6">
-              <label for="Match Id" class="form-label">Match Id</label>
-              <input type="text" class="form-control" id="MatchId" placeholder="" value="" required>
+              <label for="team" class="form-label">Match ( Team 1 vs Team 2 )</label>
+              <select class="form-select" id="dropdown" required>
+
+              </select>
               <div class="invalid-feedback">
-                Valid Match ID is required.
+                Please select a Match.
               </div>
             </div>
 
             <div class="col-6">
               <label for="Team Win" class="form-label">Which Team will win?</label>
-              <input type="text" class="form-control" id="team_win">
+              <select class="form-select" id="team_win" required>
+                <option value="">Choose...</option>
+                <option>MI</option>
+                <option>CSK</option>
+                <option>RCB</option>
+                <option>DC</option>
+                <option>RCB</option>
+                <option>KKR</option>
+                <option>PBKS</option>
+                <option>SRH</option>
+              </select>
               <div class="invalid-feedback">
                 Please enter a team.
               </div>
             </div>
 
             <div class="col-6">
-              <label for="wickets" class="form-label">No of Wickets? </label>
-              <input type="text" class="form-control" id="wickets">
+              <label for="wickets" class="form-label">No of Wickets? (eg: 10) </label>
+              <input type="number" class="form-control" id="wickets" required>
               <div class="invalid-feedback">
                 Please enter valid wickets.
               </div>
             </div>
 
+
+
             <div class="col-sm-3">
-              <label for="teamscore" class="form-label">team 1 High score</label>
-              <input type="text" class="form-control" id="teamhigh1" placeholder="" value="" required>
+              <label for="teamscore" class="form-label">team 1 Low score (eg: 190) </label>
+              <input type="number" class="form-control" id="teamlow1" placeholder="" value="" required>
               <div class="invalid-feedback">
                 Valid score required.
               </div>
             </div>
 
             <div class="col-sm-3">
-              <label for="teamscore" class="form-label">team 1 Low score</label>
-              <input type="text" class="form-control" id="teamlow1" placeholder="" value="" required>
+              <label for="teamscore" class="form-label">team 1 High score (eg: 200) </label>
+              <input type="number" class="form-control" id="teamhigh1" placeholder="" value="" required>
               <div class="invalid-feedback">
-                 Valid score required.
+                Valid score required.
               </div>
             </div>
 
             <div class="col-sm-3">
-              <label for="teamscore" class="form-label">team 2 High score</label>
-              <input type="text" class="form-control" id="teamhigh2" placeholder="" value="" required>
+              <label for="teamscore" class="form-label">team 2 low score (eg: 190) </label>
+              <input type="number" class="form-control" id="teamlow2" placeholder="" value="" required>
               <div class="invalid-feedback">
-                 Valid score required.
+                Valid score required.
               </div>
             </div>
 
             <div class="col-sm-3">
-              <label for="teamscore" class="form-label">team 1 low score</label>
-              <input type="text" class="form-control" id="teamlow2" placeholder="" value="" required>
+              <label for="teamscore" class="form-label">team 2 High score (eg: 200) </label>
+              <input type="number" class="form-control" id="teamhigh2" placeholder="" value="" required>
               <div class="invalid-feedback">
-                 Valid score required.
+                Valid score required.
               </div>
             </div>
 
 
-          
+
+
+
           </div>
 
           <hr class="my-4">
 
-
           <button class="w-100 btn btn-primary btn-lg" type="submit">SUBMIT</button>
+
         </form>
-      
+      </div>
     </div>
+
   </main>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2021 Pdict</p>
-    <ul class="list-inline">
-      <li class="list-inline-item"><a href="#">Privacy</a></li>
-      <li class="list-inline-item"><a href="#">Terms</a></li>
-      <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
-  </footer>
+    footer>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 
-      <script src="user.js"></script>
-  </body>
+<script src="http://103.78.121.142:58080/iplpredict/matchPredictionPage/match_prediction.js"></script>
+</body>
 </html>

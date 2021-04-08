@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="http://103.78.121.142:58080/iplpredict/assetsResource/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://103.78.121.142:58080/iplpredict/assetsResource/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
 * {
   box-sizing: border-box;
 }
@@ -18,7 +18,7 @@ body {
   position: fixed;
   right: 0;
   bottom: 0;
-  min-width: 100%; 
+  min-width: 100%;
   min-height: 100%;
 }
 
@@ -46,40 +46,27 @@ body {
   color: black;
 }
 </style>
-<link href="http://103.78.121.142:58080/iplpredict/landingPage/landing.css" rel="stylesheet">
+    <link href="http://103.78.121.142:58080/iplpredict/landingPage/landing.css" rel="stylesheet">
 </head>
 <body class="d-flex h-100 text-center text-white">
-<video autoplay muted loop preload="auto" id="myVideo">
-  <source src="http://103.78.121.142:58080/iplpredict/landingPage/iplvid.mp4" type="video/mp4">
-<!--  <source src="C:\repos\IPL-predict\src\main\resources\webPageResources\landing\iplvid.mp4" type="video/mp4">-->
+
+<video autoplay muted loop id="myVideo">
+    <source src="http://103.78.121.142:58080/iplpredict/landingPage/iplvid.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
 </video>
 
 <div class="content">
     <main class="px-3">
-    <h1>Welcome to IPL Predict Season 4</h1>
-    <p class="lead">Are you ready for another season of nail biting IPL-Predict season?<br> If your answer is 'yes' then click the button to register yourself!</p>
-    <p class="lead">
-      <a href="http://103.78.121.142:58080/iplpredict/userPage/user.html" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Register</a>
-      <a href="http://103.78.121.142:58080/iplpredict/signInPage/signin.html" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Sign In</a>
-      
-    </p>
-  </main>
+        <h1>Welcome to IPL Predict Season 4</h1>
+        <p class="lead">Are you ready for another season of nail biting IPL-Predict season?<br> If your answer is 'yes' then click the button to register yourself!</p>
+        <p class="lead">
+            <a href="http://103.78.121.142:58080/iplpredict/userPage/user.html" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Register</a>
+            <a href="http://103.78.121.142:58080/iplpredict/signInPage/signin.html" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Sign In</a>
+
+        </p>
+    </main>
 </div>
 
-<script>
-var video = document.getElementById("myVideo");
-var btn = document.getElementById("myBtn");
-
-function myFunction() {
-  if (video.paused) {
-    video.play();
-    btn.innerHTML = "Pause";
-  } else {
-    video.pause();
-    btn.innerHTML = "Play";
-  }
-}
-</script>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 build-and-publish:
   only:
     - master
+    - frontend
   script:
     - mvn clean package
     - cp target/iplpredict.jar /home/pdict/deploy
