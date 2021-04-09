@@ -64,7 +64,7 @@ document
 
 async function showMatches() {
   if (flag === false) {
-    const response = await fetch("http://103.78.121.142:58080/iplpredict/match/getAllMatches",
+    const response = await fetch("http://103.78.121.142:58080/iplpredict/match/getAllActiveMatches",
     {
           method: "GET", // or 'PUT'
           headers: {
@@ -93,7 +93,7 @@ dropdown.innerHTML = `<option value="">Choose...</option>`;
 
 
 
-  for (var i = 0; i < 2; i++) {
+  for (var i = 0; i < matches.length; i++) {
     var obj = matches[i];
     var matchId = obj.matchId;
     let match = obj.teamId1 + " vs " + obj.teamId2;
