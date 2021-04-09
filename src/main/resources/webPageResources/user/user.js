@@ -79,7 +79,7 @@ async function postreq(data) {
     //console.log("result:", result);
     window.setTimeout(function () {
       window.location.href =
-        "http://103.78.121.142:58080/iplpredict/landingPage/landing.html";
+        "http://103.78.121.142:58080/iplpredict/signInPage/signin.html";
     }, 5000);
 
     // window.location.replace("../cover/cover.html");
