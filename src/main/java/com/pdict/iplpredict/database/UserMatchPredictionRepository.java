@@ -14,7 +14,7 @@ public class UserMatchPredictionRepository {
     public List<UserMatchPrediction> getUserMatchPredictionsByMatchId(String matchId) throws SQLException {
         String sql = "SELECT mp.username, fav_team, match_id, team_win, team1_high, team1_low, team2_high, team2_low,"
                 + " wickets FROM \"match_prediction\" mp JOIN \"user\" u ON mp.username=u.username WHERE " +
-                "match_id=" + matchId + ";";
+                "match_id='" + matchId + "';";
 
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();

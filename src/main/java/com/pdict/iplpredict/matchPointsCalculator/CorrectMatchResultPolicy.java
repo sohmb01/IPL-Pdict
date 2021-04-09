@@ -6,7 +6,7 @@ import com.pdict.iplpredict.entities.UserMatchPrediction;
 public class CorrectMatchResultPolicy implements MatchPointsPolicy {
     @Override
     public Boolean isApplicable(UserMatchPrediction userMatchPrediction, Match match) {
-        return userMatchPrediction.teamWin == match.teamWin;
+        return userMatchPrediction.teamWin.equals(match.teamWin);
     }
 
     @Override
