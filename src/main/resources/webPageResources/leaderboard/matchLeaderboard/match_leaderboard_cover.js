@@ -54,7 +54,7 @@ async function showMatches() {
            let url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html?" + matches[i].matchId;
           var row = `<tr class="text-white">
                  <td id="${matches[i].matchId}">${match}</td>
-                 <td><a href=${url} class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a></td>
+                 <td><a href=${url} class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a></td>`
 
       table.innerHTML += row;
      // document.getElementById("${matches[i].matchId}").setAttribute("href",url);
