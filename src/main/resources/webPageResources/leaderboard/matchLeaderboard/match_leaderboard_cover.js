@@ -49,10 +49,11 @@ async function showMatches() {
     var num = i+1;
        let match = "Match : " + num.toString() + "  " + matches[i].teamId1 + " vs " + matches[i].teamId2;
       // let url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html?" + matches[i].matchId;
+      console.log("matchid : ",matches[i].matchId);
+      var url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html/?"+matches[i].matchId;
       var row = `<tr class="text-white">
              <td id="${matches[i].matchId}">${match}</td>
-             <td><a href="http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html/"
-                    onclick="location.href=this.href+'?'+${matches[i].matchId};return false;" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a></td>
+             <td><script>document.write('<a href="' + url + '"  class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a>')</script></td>
            </tr>`;
       table.innerHTML += row;
   }
@@ -61,3 +62,5 @@ async function showMatches() {
 
 //href="http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html/"
 //onclick="location.href=this.href+'?'+matches[i].matchId;return false;"
+//var loc = "https://www.google.com/?xyz="+val;
+//            document.write('<a href="' + loc + '"  class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a>')
