@@ -43,7 +43,7 @@ async function showMatches() {
 
     console.log("resp:", response);
     const result = await response.json();
-    console.log("matches:", matches);
+  //  console.log("matches:", matches);
 
   var table = document.getElementById("myTable");
 
