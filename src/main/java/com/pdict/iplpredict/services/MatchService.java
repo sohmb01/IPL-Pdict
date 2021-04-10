@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -97,7 +98,7 @@ public class MatchService {
 
             List<Match> matches = matchRepository.getAllMatches();
             for(Match match : matches) {
-                if(isPredictionPossibleForMatch(match)) {
+                if(isPredictionPossibleForMatch(match) && isTodaysMatch(match)) {
                     activeMatches.add(match);
                 }
             }
@@ -127,6 +128,13 @@ public class MatchService {
         LocalDateTime matchStartDateTime = LocalDateTime.of(match.matchStartYear, match.matchStartMonth, match.matchStartDay, match.matchStartHour, match.matchStartMinute);
 
         return currentDateTime.isBefore(matchStartDateTime);
+    }
+
+    private Boolean isTodaysMatch(Match match) {
+        LocalDate today = LocalDate.now();
+        LocalDate matchDate = LocalDate.of(match.matchStartYear, match.matchStartMonth, match.matchStartDay);
+
+        return today.isEqual(matchDate);
     }
 
 //    @POST
