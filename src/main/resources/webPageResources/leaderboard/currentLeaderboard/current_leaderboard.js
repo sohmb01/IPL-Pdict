@@ -23,14 +23,20 @@ fetch("http://103.78.121.142:58080/iplpredict/currentLeaderboard/getCurrentLeade
   )
   .then((response) => response.json())
   .then((result) => {
-    console.log(result.data);
+    console.log("result data",result.data);
+    console.log("result",result);
+    console.log("result length",result.length);
+    console.log("result data length",result.data.length);
+    console.log("result body",result.body);
+    console.log("result body length",result.body.length);
+
     // buildTable(result);
     var table = document.getElementById("myTable");
 
-    for (var i = 0; i < result.data.length; i++) {
+    for (var i = 0; i < result.length; i++) {
       var row = `<tr class="text-white">
-             <td>${result.data[i].username}</td>
-             <td>${result.data[i].matchPoints}</td>
+             <td>${result[i].username}</td>
+             <td>${result[i].matchPoints}</td>
            </tr>`;
       table.innerHTML += row;
     }
