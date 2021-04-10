@@ -13,13 +13,13 @@ if (!username || !accesstoken) {
 }
 
 fetch("http://103.78.121.142:58080/iplpredict/currentLeaderboard/getCurrentLeaderboard/2021",
-  method: "GET", // or 'PUT'
-      headers: {
-         HeaderUsername: Cookies.get("HeaderUsername"),
-        AccessToken: Cookies.get("AccessToken"),
+    {
+        method: "GET", // or 'PUT'
+        headers: {
         HeaderUsername: username,
         AccessToken: accesstoken,
       }
+    }
   )
   .then((response) => response.json())
   .then((result) => {
@@ -34,6 +34,6 @@ fetch("http://103.78.121.142:58080/iplpredict/currentLeaderboard/getCurrentLeade
            </tr>`;
       table.innerHTML += row;
     }
-  });
+  };
 
 
