@@ -113,6 +113,10 @@ public class MatchService {
                     .isBefore(LocalDateTime.of(b.matchStartYear, b.matchStartMonth, b.matchStartDay, b.matchStartHour, b.matchStartMinute)) ? -1 : 1;
         });
 
+        if(activeMatches.size()>2) {
+            activeMatches = activeMatches.subList(0,2);
+        }
+
         return Response.ok()
                 .entity(activeMatches)
                 .build();
