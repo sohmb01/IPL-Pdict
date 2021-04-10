@@ -34,6 +34,6 @@ fetch("http://103.78.121.142:58080/iplpredict/currentLeaderboard/getCurrentLeade
            </tr>`;
       table.innerHTML += row;
     }
-  };
+  });
 
 
