@@ -48,13 +48,16 @@ async function showMatches() {
     for (var i = 0; i < matches.length; i++) {
     var num = i+1;
        let match = "Match : " + num.toString() + "  " + matches[i].teamId1 + " vs " + matches[i].teamId2;
-       let url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html?" + matches[i].matchId;
+      // let url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html?" + matches[i].matchId;
       var row = `<tr class="text-white">
              <td id="${matches[i].matchId}">${match}</td>
-             <td><a href=url class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a></td>
+             <td><a href="http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html/"
+                    onclick="location.href=this.href+'?'+matches[i].matchId;return false;" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a></td>
            </tr>`;
       table.innerHTML += row;
   }
 
   }
 
+href="http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html/"
+onclick="location.href=this.href+'?'+matches[i].matchId;return false;"
