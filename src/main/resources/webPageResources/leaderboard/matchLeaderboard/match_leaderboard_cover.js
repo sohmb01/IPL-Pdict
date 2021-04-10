@@ -50,14 +50,14 @@ async function showMatches() {
        let match = "Match : " + num.toString() + "  " + matches[i].teamId1 + " vs " + matches[i].teamId2;
       // let url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html?" + matches[i].matchId;
       //console.log("matchid : ",matches[i].matchId);
-      var val = matches[i].matchId;
-      var url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html/?"+val;
-      var row = `<tr class="text-white">
-             <td >${match}</td>
-             <td><a id="${matches[i].matchId}" class="btn btn-md btn-secondary fw-bold border-white bg-white">Show</a></td>
-           </tr>`;
+      //var val = matches[i].matchId;
+           let url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html?" + matches[i].matchId;
+          var row = `<tr class="text-white">
+                 <td id="${matches[i].matchId}">${match}</td>
+                 <td><a href=${url} class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a></td>
+
       table.innerHTML += row;
-      document.getElementById("${matches[i].matchId}").setAttribute("href",url);
+     // document.getElementById("${matches[i].matchId}").setAttribute("href",url);
   }
 
   }
