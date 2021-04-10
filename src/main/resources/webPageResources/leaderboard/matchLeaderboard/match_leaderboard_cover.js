@@ -49,16 +49,26 @@ async function showMatches() {
     var num = i+1;
        let match = "Match : " + num.toString() + "  " + matches[i].teamId1 + " vs " + matches[i].teamId2;
       // let url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html?" + matches[i].matchId;
-      console.log("matchid : ",matches[i].matchId);
-      var url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html/?"+matches[i].matchId;
+      //console.log("matchid : ",matches[i].matchId);
+      var val = matches[i].matchId;
+      var url = "http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html/?"+val;
       var row = `<tr class="text-white">
-             <td id="${matches[i].matchId}">${match}</td>
-             <td><script>document.write('<a href="' + url + '"  class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a>')</script></td>
+             <td >${match}</td>
+             <td><a id="${matches[i].matchId}" class="btn btn-md btn-secondary fw-bold border-white bg-white">Show</a></td>
            </tr>`;
       table.innerHTML += row;
+      document.getElementById("${matches[i].matchId}").setAttribute("href",url);
   }
 
   }
+
+//<script>
+//   var scrt_var = 10;
+//   document.getElementById("link").setAttribute("href",scrt_var);
+//</script>
+//<a id="link">this is a link</a>
+//
+//<a id="${matches[i].matchId}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Show</a>
 
 //href="http://103.78.121.142:58080/iplpredict/leaderboardPage/matchLeaderboard/match_leaderboard.html/"
 //onclick="location.href=this.href+'?'+matches[i].matchId;return false;"
