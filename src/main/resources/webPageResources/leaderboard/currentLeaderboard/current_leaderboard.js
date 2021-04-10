@@ -23,12 +23,10 @@ fetch("http://103.78.121.142:58080/iplpredict/currentLeaderboard/getCurrentLeade
   )
   .then((response) => response.json())
   .then((result) => {
-    console.log("result data",result.data);
     console.log("result",result);
     console.log("result length",result.length);
-    console.log("result data length",result.data.length);
-    console.log("result body",result.body);
-    console.log("result body length",result.body.length);
+//    console.log("result body",result.body);
+//    console.log("result body length",result.body.length);
 
     // buildTable(result);
     var table = document.getElementById("myTable");
