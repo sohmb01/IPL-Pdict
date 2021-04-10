@@ -13,7 +13,7 @@ if (!username || !accesstoken) {
 
 
 var matchId = location.search.substring(1);
-
+console.log("matchID url: ",matchId);
 showMatches();
 
 
