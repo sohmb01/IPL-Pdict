@@ -131,7 +131,7 @@ public class MatchService {
     }
 
     private Boolean isTodaysMatch(Match match) {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Kolkata"));
         LocalDate matchDate = LocalDate.of(match.matchStartYear, match.matchStartMonth, match.matchStartDay);
 
         return today.isEqual(matchDate);
