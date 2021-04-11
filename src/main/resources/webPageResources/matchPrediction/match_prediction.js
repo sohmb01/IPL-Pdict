@@ -76,13 +76,10 @@ async function showMatches() {
 
             if (!response.ok) {
               const message = `An error has occured: ${response.status}`;
-              bootbox.alert({ message: HttpStatus[response.status] });
+
              // throw new Error(message);
-                  if(response.status === 401){
-                  window.setTimeout(function () {
-                        window.location.href =
-                          "http://103.78.121.142:58080/iplpredict/signInPage/signin.html";
-                      }, 2000);}
+                  if(response.status != 401){
+                   bootbox.alert({ message: HttpStatus[response.status] });
             }
 
     console.log("resp:", response);
