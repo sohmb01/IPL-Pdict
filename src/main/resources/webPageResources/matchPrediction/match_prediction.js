@@ -81,7 +81,7 @@ async function showMatches() {
                   if(response.status != 401){
                    bootbox.alert({ message: HttpStatus[response.status] });
             }
-
+}
     console.log("resp:", response);
     const matches = await response.json();
     console.log("matches:", matches.data);
