@@ -129,7 +129,7 @@ public class TournamentPredictionService {
 
     private Boolean isPredictDeadlinePassed(Tournament tournament) throws SQLException {
         LocalDate currentdate = LocalDate.now(ZoneId.of("Asia/Kolkata"));
-        LocalDate tournamentStartDate = LocalDate.of(tournament.tournamentStartYear, tournament.tournamentStartMonth, tournament.tournamentStartDay+2);
+        LocalDate tournamentStartDate = LocalDate.of(tournament.tournamentStartYear, tournament.tournamentStartMonth, tournament.tournamentStartDay);
 
         return currentdate.isAfter(tournamentStartDate);
     }
