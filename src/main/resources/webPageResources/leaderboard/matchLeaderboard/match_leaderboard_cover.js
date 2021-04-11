@@ -18,7 +18,7 @@ showMatches();
 
 async function showMatches() {
 
-    const response = await fetch("http://103.78.121.142:58080/iplpredict/match/getAllMatches",
+    const response = await fetch("http://103.78.121.142:58080/iplpredict/match/getAllFinishedMatches",
     {
           method: "GET", // or 'PUT'
           headers: {

@@ -3,6 +3,7 @@ package com.pdict.iplpredict.database;
 import com.pdict.iplpredict.entities.Match;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +76,46 @@ public class MatchRepository {
         } finally {
             conn.close();
         }
+
+        return matches;
+    }
+
+    public List<Match> getFinishedMatches() throws SQLException{
+        String sql = "SELECT * FROM \"match\" WHERE is_finished=true";
+
+        Connection conn = ConenctionPool.getConnection();
+        Statement statement = conn.createStatement();
+
+        List<Match> matches = new ArrayList<Match>();
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                String matchId = resultSet.getString("match_id");
+                Integer matchStartMinute = resultSet.getInt("match_start_minute");
+                Integer matchStartHour = resultSet.getInt("match_start_hour");
+                Integer matchStartDay = resultSet.getInt("match_start_day");
+                Integer matchStartMonth = resultSet.getInt("match_start_month");
+                Integer matchStartYear = resultSet.getInt("match_start_year");
+                Boolean isFinished = resultSet.getBoolean("is_finished");
+                String matchType = resultSet.getString("match_type");
+                String teamWin = resultSet.getString("team_win");
+                String teamId1 = resultSet.getString("team1_id");
+                String teamId2 = resultSet.getString("team2_id");
+                Integer teamScore1 = resultSet.getInt("team1_score");
+                Integer teamScore2 = resultSet.getInt("team2_score");
+                Integer wickets = resultSet.getInt("wickets");
+
+                matches.add(new Match(matchId, matchStartMinute, matchStartHour, matchStartDay, matchStartMonth, matchStartYear, isFinished, matchType, teamWin, teamId1, teamId2, teamScore1, teamScore2, wickets));
+            }
+        } finally {
+            conn.close();
+        }
+
+        matches.sort((a,b)-> {
+            return LocalDateTime.of(a.matchStartYear, a.matchStartMonth, a.matchStartDay, a.matchStartHour, a.matchStartMinute)
+                    .isBefore(LocalDateTime.of(b.matchStartYear, b.matchStartMonth, b.matchStartDay, b.matchStartHour, b.matchStartMinute)) ? -1 : 1;
+        });
 
         return matches;
     }

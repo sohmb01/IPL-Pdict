@@ -123,6 +123,34 @@ public class MatchService {
                 .build();
     }
 
+    @GET
+    @Path("/getAllFinishedMatches")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllFinishedMatches(@HeaderParam("HeaderUsername") String headerUsername, @HeaderParam("AccessToken") String accessToken)  {
+        logger.info(Instant.now()+" RECEIVED GET: /getAllFinishedMatches");
+
+        List<Match> finishedMatches = new ArrayList<>();
+        try {
+            String activeToken = loginSessionRepository.getActiveToken(headerUsername);
+            if(activeToken==null || !activeToken.contentEquals(accessToken)) {
+                logger.info(Instant.now()+" AUTHORIZATION FAILURE GET: /getAllFinishedMatches");
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
+            finishedMatches = matchRepository.getFinishedMatches();
+
+        } catch (SQLException sqlException) {
+            logger.error(Instant.now()+" DBOPFAILURE GET: /getAllFinishedMatches", sqlException);
+            return Response.status(500).build();
+        }
+
+        logger.info(Instant.now()+" DBOPSUCCESS GET: /getAllFinishedMatches");
+
+        return Response.ok()
+                .entity(finishedMatches)
+                .build();
+    }
+
     private Boolean isPredictionPossibleForMatch(Match match) {
         LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
         LocalDateTime matchStartDateTime = LocalDateTime.of(match.matchStartYear, match.matchStartMonth, match.matchStartDay, match.matchStartHour, match.matchStartMinute);
