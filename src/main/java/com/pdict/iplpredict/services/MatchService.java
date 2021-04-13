@@ -165,24 +165,30 @@ public class MatchService {
         return today.isEqual(matchDate);
     }
 
-//    @POST
-//    @Path("/createMatch")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response createMatch(Match match)  {
-//        logger.info(Instant.now()+" RECEIVED POST: /createMatch "+match);
-//
-//        try {
-//            matchRepository.insertMatch(match);
-//        } catch (SQLException sqlException) {
-//            logger.error(Instant.now()+" DBOPFAILURE POST: /createMatch "+match, sqlException);
-//            return Response.status(500).build();
-//        }
-//
-//        logger.info(Instant.now()+" DBOPSUCCESS POST: /createMatch "+match);
-//
-//        return Response.status(201).build();
-//    }
+    @POST
+    @Path("/upsertMatch")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createMatch(@HeaderParam("HeaderUsername") String headerUsername, @HeaderParam("AccessToken") String accessToken,Match match)  {
+        logger.info(Instant.now()+" RECEIVED POST: /upsertMatch "+match);
+
+        try {
+            String activeToken = loginSessionRepository.getActiveToken("admin");
+            if(!headerUsername.contentEquals("admin") || activeToken==null || !activeToken.contentEquals(accessToken)) {
+                logger.info(Instant.now()+" AUTHORIZATION FAILURE POST: /upsertMatch "+match);
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
+            matchRepository.upsertMatch(match);
+        } catch (SQLException sqlException) {
+            logger.error(Instant.now()+" DBOPFAILURE POST: /upsertMatch "+match, sqlException);
+            return Response.status(500).build();
+        }
+
+        logger.info(Instant.now()+" DBOPSUCCESS POST: /upsertMatch "+match);
+
+        return Response.status(201).build();
+    }
 
 //    @PUT
 //    @Path("/updateMatch")

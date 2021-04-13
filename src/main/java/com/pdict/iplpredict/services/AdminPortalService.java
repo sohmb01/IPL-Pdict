@@ -43,7 +43,7 @@ public class AdminPortalService {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
-            matchRepository.updateMatch(match);
+            matchRepository.upsertMatch(match);
 
             List<UserMatchPrediction> userMatchPredictions = userMatchPredictionRepository.getUserMatchPredictionsByMatchId(match.matchId);
 

@@ -168,16 +168,32 @@ public class MatchRepository {
 //            conn.close();
 //        }
 //    }
+//
+//    public void updateMatch(Match match) throws SQLException {
+//        String sql = "UPDATE \"match\" SET match_start_minute="+match.matchStartMinute+", match_start_hour="+match.matchStartHour+", match_start_day="+match.matchStartDay+", match_start_month="+match.matchStartMonth+", match_start_year="+match.matchStartYear+", is_finished="+match.isFinished+", match_type='"+match.matchType+"', team_win='"+match.teamWin+"', team1_id='"+match.teamId1+"', team2_id='"+match.teamId2+"', team1_score="+match.teamScore1+", team2_score="+match.teamScore2+", wickets="+match.wickets+" WHERE match_id='"+match.matchId+"';";
+//
+//        Connection conn = ConenctionPool.getConnection();
+//        Statement statement = conn.createStatement();
+//
+//        try {
+//            statement.executeUpdate(sql);
+//        } finally {
+//            conn.close();
+//        }
+//    }
 
-    public void updateMatch(Match match) throws SQLException {
-        String sql = "UPDATE \"match\" SET match_start_minute="+match.matchStartMinute+", match_start_hour="+match.matchStartHour+", match_start_day="+match.matchStartDay+", match_start_month="+match.matchStartMonth+", match_start_year="+match.matchStartYear+", is_finished="+match.isFinished+", match_type='"+match.matchType+"', team_win='"+match.teamWin+"', team1_id='"+match.teamId1+"', team2_id='"+match.teamId2+"', team1_score="+match.teamScore1+", team2_score="+match.teamScore2+", wickets="+match.wickets+" WHERE match_id='"+match.matchId+"';";
+    public void upsertMatch(Match match) throws SQLException {
+        String updateSql = "UPDATE SET match_start_minute="+match.matchStartMinute+", match_start_hour="+match.matchStartHour+", match_start_day="+match.matchStartDay+", match_start_month="+match.matchStartMonth+", match_start_year="+match.matchStartYear+", is_finished='"+match.isFinished+"', match_type='"+match.matchType+"', team_win='"+match.teamWin+"', team1_id='"+match.teamId1+"', team2_id='"+match.teamId2+"', team1_score="+match.teamScore1+", team2_score="+match.teamScore2+", wickets="+ match.wickets+";";
+
+        String sql = "INSERT INTO \"match\" VALUES ('"+match.matchId+"', "+match.matchStartMinute+", "+match.matchStartHour+", "+match.matchStartDay+", "+match.matchStartMonth+", "+match.matchStartYear+", '"+match.isFinished+"', '"+match.matchType+"', '"+match.teamWin+"', '"+match.teamId1+"', '"+match.teamId2+"', "+match.teamScore1+", "+match.teamScore2+", "+ match.wickets+") ON CONFLICT(match_id) DO "+updateSql;
 
         Connection conn = ConenctionPool.getConnection();
         Statement statement = conn.createStatement();
 
         try {
             statement.executeUpdate(sql);
-        } finally {
+        }
+        finally {
             conn.close();
         }
     }
