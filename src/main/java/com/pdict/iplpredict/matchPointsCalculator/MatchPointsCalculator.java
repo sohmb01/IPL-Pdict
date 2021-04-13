@@ -1,6 +1,8 @@
 package com.pdict.iplpredict.matchPointsCalculator;
 
+import com.pdict.iplpredict.database.SuperOverRepository;
 import com.pdict.iplpredict.entities.Match;
+import com.pdict.iplpredict.entities.SuperOver;
 import com.pdict.iplpredict.entities.UserMatchPrediction;
 import com.pdict.iplpredict.superoverPointsCalculator.SuperoverPointsCalculator;
 
@@ -18,7 +20,7 @@ public class MatchPointsCalculator {
         matchPointsPolicies.add(new WicketsPolicy());
     }
 
-    public Integer getMatchPoints(UserMatchPrediction userMatchPrediction, Match match, List<UserMatchPrediction> superOverPredictions, List<Match> superOvers) {
+    public Integer getMatchPoints(UserMatchPrediction userMatchPrediction, Match match, List<UserMatchPrediction> superOverPredictions, List<SuperOver> superOvers) {
         Integer points = 0;
 
         for(MatchPointsPolicy matchPointsPolicy : matchPointsPolicies) {
@@ -30,11 +32,11 @@ public class MatchPointsCalculator {
         SuperoverPointsCalculator superoverPointsCalculator = new SuperoverPointsCalculator();
 
         Iterator<UserMatchPrediction> superOverPredictionsIterator = superOverPredictions.iterator();
-        Iterator<Match> superOversIterator = superOvers.iterator();
+        Iterator<SuperOver> superOversIterator = superOvers.iterator();
 
         while(superOverPredictionsIterator.hasNext() && superOversIterator.hasNext()) {
             UserMatchPrediction superOverPrediction = superOverPredictionsIterator.next();
-            Match superOver = superOversIterator.next();
+            SuperOver superOver = superOversIterator.next();
 
             points += superoverPointsCalculator.getSuperoverPoints(superOverPrediction, superOver);
         }

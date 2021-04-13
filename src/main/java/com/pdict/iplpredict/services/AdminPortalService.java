@@ -1,10 +1,7 @@
 package com.pdict.iplpredict.services;
 
 import com.pdict.iplpredict.database.*;
-import com.pdict.iplpredict.entities.Match;
-import com.pdict.iplpredict.entities.Tournament;
-import com.pdict.iplpredict.entities.UserMatchPrediction;
-import com.pdict.iplpredict.entities.UserTournamentPrediction;
+import com.pdict.iplpredict.entities.*;
 import com.pdict.iplpredict.matchPointsCalculator.MatchPointsCalculator;
 import com.pdict.iplpredict.tournamentPointsCalculator.TournamentPointsCalculator;
 import org.slf4j.Logger;
@@ -22,6 +19,7 @@ public class AdminPortalService {
     Logger logger = LoggerFactory.getLogger(AdminPortalService.class);
     UserMatchPredictionRepository userMatchPredictionRepository = new UserMatchPredictionRepository();
     MatchRepository matchRepository = new MatchRepository();
+    SuperOverRepository superOverRepository = new SuperOverRepository();
     MatchPointsCalculator matchPointsCalculator = new MatchPointsCalculator();
     UserTournamentPredictionRepository userTournamentPredictionRepository = new UserTournamentPredictionRepository();
     TournamentRepository tournamentRepository = new TournamentRepository();
@@ -49,8 +47,7 @@ public class AdminPortalService {
 
             for (UserMatchPrediction userMatchPrediction : userMatchPredictions) {
                 List<UserMatchPrediction> superOverPredictions = userMatchPredictionRepository.getUserSuperOverPredictionsByMatchIdAndUsername(match.matchId, userMatchPrediction.userName);
-                List<Match> superOvers = matchRepository.getSuperOversOfMatch(match.matchId);
-
+                List<SuperOver> superOvers = superOverRepository.getSuperOversOfMatch(match.matchId);
                 Integer points = matchPointsCalculator.getMatchPoints(userMatchPrediction, match, superOverPredictions, superOvers);
 
                 pointsRepository.insertMatchPoints(userMatchPrediction.userName, match.matchId, points);

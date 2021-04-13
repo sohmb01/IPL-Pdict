@@ -73,6 +73,28 @@ CREATE TABLE "match" (
   FOREIGN KEY ("team2_id") REFERENCES "team" ("team_code")
 );
 
+CREATE TABLE "superover" (
+  "superover_number" int,
+  "match_id" varchar,
+  "superover_start_minute" int,
+  "superover_start_hour" int,
+  "superover_start_day" int,
+  "superover_start_month" int,
+  "superover_start_year" int,
+  "is_finished" boolean DEFAULT FALSE,
+  "team_win" varchar,
+  "team1_id" varchar,
+  "team2_id" varchar,
+  "team1_score" int,
+  "team2_score" int,
+  "wickets" int,
+  PRIMARY KEY ("superover_number", "match_id"),
+  FOREIGN KEY ("match_id") REFERENCES "match" ("match_id"),
+  FOREIGN KEY ("team_win") REFERENCES "team" ("team_code"),
+  FOREIGN KEY ("team1_id") REFERENCES "team" ("team_code"),
+  FOREIGN KEY ("team2_id") REFERENCES "team" ("team_code")
+);
+
 CREATE TABLE "match_prediction" (
   "username" varchar,
   "match_id" varchar,
