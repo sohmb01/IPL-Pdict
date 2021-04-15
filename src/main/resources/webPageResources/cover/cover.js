@@ -64,8 +64,8 @@ async function showMatches() {
       bootbox.alert({ message: HttpStatus[response.status] });
     }
   }
-  console.log("resp:", response);
-  const matches = await response.json();
+//  console.log("resp:", response);
+//  const matches = await response.json();
   //console.log("matches:", matches.data);
 
   getmatch.innerHTML = `<option value="">Choose...</option>`;
@@ -111,8 +111,8 @@ var matchId = getmatch.value;
     }
   }
 
-  console.log("resp:", response);
-  const result = await response.json();
+//  console.log("resp:", response);
+//  const result = await response.json();
   //  console.log("matches:", matches);
 
   var table = document.getElementById("myTable1");
@@ -166,8 +166,8 @@ async function showtournamentprediction() {
     }
   }
 
-  console.log("resp:", response);
-  const result = await response.json();
+//  console.log("resp:", response);
+//  const result = await response.json();
   //  console.log("matches:", matches);
 
   var table = document.getElementById("myTable2");
@@ -189,16 +189,14 @@ async function showtournamentprediction() {
                 <td>Orange Cap : </td>
                 <td>${result.orangeCaps[0]}<br>
                     ${result.orangeCaps[1]}<br>
-                    ${result.orangeCaps[2]}<br>
-                    ${result.orangeCaps[3]}
+                    ${result.orangeCaps[2]}
                 </td>
           </tr>
           <tr>
                 <td>Purple Cap : </td>
                 <td>${result.purpleCaps[0]}<br>
                     ${result.purpleCaps[1]}<br>
-                    ${result.purpleCaps[2]}<br>
-                    ${result.purpleCaps[3]}
+                    ${result.purpleCaps[2]}
                 </td>
           </tr>
           `;
