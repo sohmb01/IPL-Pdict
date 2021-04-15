@@ -86,7 +86,7 @@ var matchId = getmatch.value;
 // "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/"+ username + "/" + matchId
 async function showmatchprediction() {
   const response = await fetch(
-    "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/rdx/s2021-1",
+    "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/"+ username + "/" + matchId,
     {
       method: "GET", // or 'PUT'
       headers: {
@@ -141,7 +141,7 @@ async function showmatchprediction() {
 
 async function showtournamentprediction() {
   const response = await fetch(
-    "http://103.78.121.142:58080/iplpredict/tournamentPrediction/getTournamentPrediction/rdx/2021",
+    "http://103.78.121.142:58080/iplpredict/tournamentPrediction/getTournamentPrediction/"+ username + "/2021",
     {
       method: "GET", // or 'PUT'
       headers: {
@@ -178,25 +178,25 @@ async function showtournamentprediction() {
           </tr>
           <tr>
                 <td>Semi Finalists : </td>
-                <td>${result.semiFinalists[0]}
-                    ${result.semiFinalists[1]}
-                    ${result.semiFinalists[2]}
+                <td>${result.semiFinalists[0]}<br>
+                    ${result.semiFinalists[1]}<br>
+                    ${result.semiFinalists[2]}<br>
                     ${result.semiFinalists[3]}
                 </td>
           </tr>
           <tr>
                 <td>Orange Cap : </td>
-                <td>${result.orangeCaps[0]}
-                    ${result.orangeCaps[1]}
-                    ${result.orangeCaps[2]}
+                <td>${result.orangeCaps[0]}<br>
+                    ${result.orangeCaps[1]}<br>
+                    ${result.orangeCaps[2]}<br>
                     ${result.orangeCaps[3]}
                 </td>
           </tr>
           <tr>
                 <td>Purple Cap : </td>
-                <td>${result.purpleCaps[0]}
-                    ${result.purpleCaps[1]}
-                    ${result.purpleCaps[2]}
+                <td>${result.purpleCaps[0]}<br>
+                    ${result.purpleCaps[1]}<br>
+                    ${result.purpleCaps[2]}<br>
                     ${result.purpleCaps[3]}
                 </td>
           </tr>

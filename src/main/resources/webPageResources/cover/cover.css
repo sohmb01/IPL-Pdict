@@ -48,3 +48,8 @@
   color: #fff;
   border-bottom-color: #fff;
 }
+
+.bootbox-body {
+  color: rgb(0, 114, 4);
+  text-shadow: 0 0rem 0rem rgba(0, 0, 0, 0);
+}
