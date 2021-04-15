@@ -82,9 +82,10 @@ async function showMatches() {
   }
 }
 
-var matchId = getmatch.value;
+
 // "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/"+ username + "/" + matchId
 async function showmatchprediction() {
+var matchId = getmatch.value;
   const response = await fetch(
     "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/"+ username + "/" + matchId,
     {
