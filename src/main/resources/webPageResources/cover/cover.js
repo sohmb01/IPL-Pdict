@@ -73,7 +73,8 @@ async function showMatches() {
   for (var i = 0; i < matches.length; i++) {
     var obj = matches[i];
     var matchId = obj.matchId;
-    let match = "Match " + i+1 +" : " + obj.teamId1 + " vs " + obj.teamId2;
+    var num = i+1;
+    let match = "Match " + num +" : " + obj.teamId1 + " vs " + obj.teamId2;
     var row = `<option value="${matchId}">
                 ${match}
                </option>`;
@@ -116,19 +117,19 @@ async function showmatchprediction() {
   var table = document.getElementById("myTable1");
 
   var row = `
-       <tr class="text-white">
+       <tr>
               <td>Team Win : </td>
               <td>${result.teamWin}</td>
         </tr>
-        <tr class="text-white">
+        <tr>
               <td>Wickets : </td>
               <td>${result.wickets}</td>
         </tr>
-        <tr class="text-white">
+        <tr>
               <td>Team 1 Score : </td>
               <td>${result.teamLow1} - ${result.teamHigh1}</td>
         </tr>
-        <tr class="text-white">
+        <tr>
               <td>Team 2 Score : </td>
               <td>${result.teamLow2} - ${result.teamHigh2}</td>
         </tr>
@@ -171,23 +172,34 @@ async function showtournamentprediction() {
   var table = document.getElementById("myTable2");
 
   var row = `
-         <tr class="text-white">
+         <tr>
                 <td>Winning Team : </td>
                 <td>${result.winningTeam}</td>
           </tr>
-          <tr class="text-white">
+          <tr>
                 <td>Semi Finalists : </td>
-                <td>${result.semiFinalists[1]}</td>
+                <td>${result.semiFinalists[0]}
+                    ${result.semiFinalists[1]}
+                    ${result.semiFinalists[2]}
+                    ${result.semiFinalists[3]}
+                </td>
           </tr>
-          <tr class="text-white">
+          <tr>
                 <td>Orange Cap : </td>
-                <td>${result.semiFinalists[2]}</td>
+                <td>${result.orangeCaps[0]}
+                    ${result.orangeCaps[1]}
+                    ${result.orangeCaps[2]}
+                    ${result.orangeCaps[3]}
+                </td>
           </tr>
-          <tr class="text-white">
+          <tr>
                 <td>Purple Cap : </td>
-                <td>${result.semiFinalists[2]}</td>
+                <td>${result.purpleCaps[0]}
+                    ${result.purpleCaps[1]}
+                    ${result.purpleCaps[2]}
+                    ${result.purpleCaps[3]}
+                </td>
           </tr>
-
           `;
 
   table.innerHTML = row;
