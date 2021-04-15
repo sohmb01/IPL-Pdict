@@ -66,7 +66,7 @@ async function showMatches() {
   }
   console.log("resp:", response);
   const matches = await response.json();
-  console.log("matches:", matches.data);
+  //console.log("matches:", matches.data);
 
   getmatch.innerHTML = `<option value="">Choose...</option>`;
 
@@ -85,7 +85,7 @@ var matchId = getmatch.value;
 // "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/"+ username + "/" + matchId
 async function showmatchprediction() {
   const response = await fetch(
-    "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/"+ rdx + "/" + s2021-1,
+    "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/rdx/s2021-1",
     {
       method: "GET", // or 'PUT'
       headers: {
@@ -140,7 +140,7 @@ async function showmatchprediction() {
 
 async function showtournamentprediction() {
   const response = await fetch(
-    "http://103.78.121.142:58080/iplpredict/tournamentPrediction/getTournamentPrediction/" + rdx + "/2021",
+    "http://103.78.121.142:58080/iplpredict/tournamentPrediction/getTournamentPrediction/rdx/2021",
     {
       method: "GET", // or 'PUT'
       headers: {
