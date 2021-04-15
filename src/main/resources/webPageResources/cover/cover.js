@@ -25,6 +25,8 @@ showmatchprediction();
 //document
 //  .getElementById("showmatchprediction")
 //  .addEventListener("submit", showmatchprediction);
+var showtournament= document.getElementById("showtournamentprediction");
+console.log(showtournament);
 document
   .getElementById("showtournamentprediction")
   .addEventListener("submit", showtournamentprediction);
