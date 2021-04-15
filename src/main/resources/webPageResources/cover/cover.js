@@ -9,19 +9,19 @@ var HttpStatus = {
   408: "Request Timeout",
   500: "Internal Server Error",
 };
-
-var usernamedata = document.getElementById("usernamedata");
-usernamedata.innerHTML = `Hello! username`;
-
 let username = Cookies.get("HeaderUsername");
 let accesstoken = Cookies.get("AccessToken");
+
+var usernamedata = document.getElementById("usernamedata");
+usernamedata.innerHTML = `Hello! ${username}`;
+
+
 
 showMatches();
 var getmatch = document.getElementById("getmatch");
 
 showmatchprediction();
 
-showtournamentprediction();
 //document
 //  .getElementById("showmatchprediction")
 //  .addEventListener("submit", showmatchprediction);
