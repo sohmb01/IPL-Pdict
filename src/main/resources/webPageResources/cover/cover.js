@@ -65,7 +65,7 @@ async function showMatches() {
     }
   }
 //  console.log("resp:", response);
-//  const matches = await response.json();
+ const matches = await response.json();
   //console.log("matches:", matches.data);
 
   getmatch.innerHTML = `<option value="">Choose...</option>`;
@@ -112,7 +112,7 @@ var matchId = getmatch.value;
   }
 
 //  console.log("resp:", response);
-//  const result = await response.json();
+ const result = await response.json();
   //  console.log("matches:", matches);
 
   var table = document.getElementById("myTable1");
@@ -167,7 +167,7 @@ async function showtournamentprediction() {
   }
 
 //  console.log("resp:", response);
-//  const result = await response.json();
+const result = await response.json();
   //  console.log("matches:", matches);
 
   var table = document.getElementById("myTable2");
