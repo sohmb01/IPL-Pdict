@@ -73,7 +73,7 @@ async function showMatches() {
   for (var i = 0; i < matches.length; i++) {
     var obj = matches[i];
     var matchId = obj.matchId;
-    let match = "Match "+ i+1 +" : " + obj.teamId1 + " vs " + obj.teamId2;
+    let match = "Match " + i+1 +" : " + obj.teamId1 + " vs " + obj.teamId2;
     var row = `<option value="${matchId}">
                 ${match}
                </option>`;
