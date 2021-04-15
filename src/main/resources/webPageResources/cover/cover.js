@@ -11,27 +11,6 @@ var HttpStatus = {
 };
 let username = Cookies.get("HeaderUsername");
 let accesstoken = Cookies.get("AccessToken");
-
-var usernamedata = document.getElementById("usernamedata");
-usernamedata.innerHTML = `Hello! ${username}`;
-
-
-
-showMatches();
-var getmatch = document.getElementById("getmatch");
-
-showmatchprediction();
-
-//document
-//  .getElementById("showmatchprediction")
-//  .addEventListener("submit", showmatchprediction);
-var showtournament= document.getElementById("showtournamentprediction");
-console.log(showtournament);
-document
-  .getElementById("showtournamentprediction")
-  .addEventListener("submit", showtournamentprediction);
-
-/*
 if (!username || !accesstoken) {
   bootbox.alert({
     message: "Please Sign IN",
@@ -42,7 +21,26 @@ if (!username || !accesstoken) {
       "http://103.78.121.142:58080/iplpredict/signInPage/signin.html";
   }, 2000);
 }
-*/
+
+var usernamedata = document.getElementById("usernamedata");
+usernamedata.innerHTML = `Hello! ${username}`;
+
+
+
+showMatches();
+var getmatch = document.getElementById("getmatch");
+
+//showmatchprediction();
+
+var showmatch = document
+                  .getElementById("showmatchprediction");
+showmatch.onclick = showmatchprediction;
+
+var showtournament = document
+                  .getElementById("showtournamentprediction");
+showtournament.onclick = showtournamentprediction;
+
+
 
 async function showMatches() {
   const response = await fetch(
@@ -75,7 +73,7 @@ async function showMatches() {
   for (var i = 0; i < matches.length; i++) {
     var obj = matches[i];
     var matchId = obj.matchId;
-    let match = "Team 1: " + obj.teamId1 + " vs " + "Team 2: " + obj.teamId2;
+    let match = "Match " i+1 " : " + obj.teamId1 + " vs " + obj.teamId2;
     var row = `<option value="${matchId}">
                 ${match}
                </option>`;
