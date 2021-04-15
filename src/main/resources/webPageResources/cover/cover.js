@@ -19,9 +19,12 @@ let accesstoken = Cookies.get("AccessToken");
 showMatches();
 var getmatch = document.getElementById("getmatch");
 
-document
-  .getElementById("showmatchprediction")
-  .addEventListener("submit", showmatchprediction);
+showmatchprediction();
+
+showtournamentprediction();
+//document
+//  .getElementById("showmatchprediction")
+//  .addEventListener("submit", showmatchprediction);
 document
   .getElementById("showtournamentprediction")
   .addEventListener("submit", showtournamentprediction);
@@ -79,10 +82,10 @@ async function showMatches() {
 }
 
 var matchId = getmatch.value;
-
+// "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/"+ username + "/" + matchId
 async function showmatchprediction() {
   const response = await fetch(
-    "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/"+ username + "/" + matchId,
+    "http://103.78.121.142:58080/iplpredict/matchPrediction/getMatchPrediction/"+ rdx + "/" + s2021-1,
     {
       method: "GET", // or 'PUT'
       headers: {
@@ -137,7 +140,7 @@ async function showmatchprediction() {
 
 async function showtournamentprediction() {
   const response = await fetch(
-    "http://103.78.121.142:58080/iplpredict/tournamentPrediction/getTournamentPrediction/" + username + "/2021",
+    "http://103.78.121.142:58080/iplpredict/tournamentPrediction/getTournamentPrediction/" + rdx + "/2021",
     {
       method: "GET", // or 'PUT'
       headers: {
