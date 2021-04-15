@@ -44,7 +44,9 @@
   </header>
 
   <main class="px-3">
+    <hr>
     <h1>Welcome to IPL Predict Season 4</h1>
+    <hr>
     <!--
     <p class="lead">Are you ready for another season of nail biting IPL-Predict season? If your answer is 'yes' then click the button to register yourself!</p>
     <p class="lead">
@@ -52,7 +54,77 @@
 
     </p>
     -->
-    <a href="https://www.iplt20.com/matches/schedule/men" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Schedule</a>
+
+    <h1 id="usernamedata"></h1>
+    <br>
+    <label for="getmatch" class="form-label"><h4>Your Match Predictions:</h4></label>
+    <div class="d-flex justify-content-center">
+
+      <select class="form-select" id="getmatch" required>
+
+      </select>
+      <div class="invalid-feedback">
+        Please select a Match.
+      </div>
+    </div>
+
+    <br>
+
+    <div id="showmatchprediction">
+      <div class="col">
+        <button class="w-50 btn btn-primary btn-lg" type="submit"><b>SHOW</b></button>
+      </div>
+      <br>
+      <table class="table table-sm table-bordered table-secondary">
+
+
+        <tr class="bg-info">
+          <th>#</th>
+          <th>Predictions</th>
+        </tr>
+        <tbody id="myTable1">
+
+        </tbody>
+
+      </table>
+      <!-- Match :<br>
+      Team win :<br>
+      Team 1 score : <br>
+      Team 2 score :<br>
+      Total Wickets :<br> -->
+      <br>
+    </div>
+
+    <hr>
+
+
+    <div class="col-lg-12">
+      <label for="gettournamentprediction" class="form-label"><h4>Your Tournament Prediction:</h4></label>
+    </div>
+
+
+    <div id="showtournamentprediction">
+      <div class="col">
+        <button class="w-50 btn btn-primary btn-lg" type="submit"><b>SHOW</b></button>
+      </div>
+      <br>
+      <table class="table table-sm table-bordered table-secondary">
+        <thead class="bg-info">
+        <th>#</th>
+        <th>Predictions</th>
+        </thead>
+
+
+        <tbody id="myTable2">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <hr>
+
   </main>
 
   <footer class="mt-auto text-white-50">
@@ -61,6 +133,14 @@
 </div>
 
 
+
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+
+<script src="http://103.78.121.142:58080/iplpredict/coverPage/cover.js"></script>
 
 </body>
 </html>
